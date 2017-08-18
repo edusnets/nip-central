@@ -59,7 +59,7 @@
         }
    ])
    .constant("settings", {
-      api: "http://localhost:8080",
+      api: "http://192.169.63.95:4445/api",
       token: 'nip_central'
    });
 })();

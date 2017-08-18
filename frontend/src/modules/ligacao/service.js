@@ -1,11 +1,12 @@
 (function(){
     angular.module('NipCentral')
     .service('LigacaoService', [
-        '$http',
-        function($http){
-            
+       '$http',
+        'settings',
+        function($http, settings){
+
             function get(filter){                
-                return $http.post('http://www.mocky.io/v2/5997128c13000003028b787e');                
+                return $http.post(settings + '/ligacao', filter);                
             }
 
             return {
