@@ -6,7 +6,7 @@
         function($http, settings){
 
             function get(filter){                
-                return $http.post(settings + '/ligacao', filter);                
+                return $http.post(settings.api + '/ligacao', filter);                
             }
 
             return {
