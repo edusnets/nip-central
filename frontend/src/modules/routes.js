@@ -22,17 +22,15 @@
                'main@app': {
                   templateUrl: 'src/template/parts/main-content.html'
                }
-            }
-         })
-         .state('app.login', {
-            url: 'login',
-            views: {
-               'content': {
-                  controller : 'LoginCtrl',
-                  templateUrl: 'src/modules/login/view.html'
-               }
-            }
-         })
+            }, 
+            resolve: ['localStorageService', 'settings', '$location',
+                function(localStorageService, settings, $location) {                    
+                    if(!localStorageService.get(settings.token)){                        
+                        $location.path('/login')
+                    }
+                }
+            ]
+         })         
          .state('app.ligacao', {
             url: 'ligacao',
             views: {
@@ -41,6 +39,22 @@
                   templateUrl: 'src/modules/ligacao/view.html'
                }
             }
+         })
+        .state('login', {
+            url: '/login',
+            views: {
+               'app': {
+                  controller : 'LoginCtrl',
+                  templateUrl: 'src/modules/login/view.html'
+               }
+            },
+            resolve: ['localStorageService', 'settings', '$location',
+                function(localStorageService, settings, $location) {                    
+                    if(localStorageService.get(settings.token)){                        
+                        $location.path('/ligacao')
+                    }
+                }
+            ]
          });
       }
    ]);

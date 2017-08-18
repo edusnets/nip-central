@@ -1,36 +1,25 @@
-<div class="mt-12">
+<div class="mt-12" style="margin: 20px 0;">
 	<div class="table-responsive">
-		<table class="table table-striped">
+		<div>
+			<input type="text" ng-model="search" style="width: 100%;margin-bottom: 10px;padding: 5px;font-size: 18px;">
+		</div>
+		<table class="table table-striped" style="border: 1px solid #f0f0f0; box-shadow: 0 0 15px -5px #222">
 			<thead>
-				<tr>
-					<th>#</th>
-					<th>Header</th>
-					<th>Header</th>
-					<th>Header</th>
-					<th>Header</th>
+				<tr>					
+					<th>Data</th>
+					<th>Duração</th>
+					<th>Bill</th>
+					<th>Origem</th>
+					<th>Destino</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>1,001</td>
-					<td>Lorem</td>
-					<td>ipsum</td>
-					<td>dolor</td>
-					<td>sit</td>
-				</tr>
-				<tr>
-					<td>1,001</td>
-					<td>Lorem</td>
-					<td>ipsum</td>
-					<td>dolor</td>
-					<td>sit</td>
-				</tr>
-				<tr>
-					<td>1,001</td>
-					<td>Lorem</td>
-					<td>ipsum</td>
-					<td>dolor</td>
-					<td>sit</td>
+				<tr ng-repeat="ligacao in ligacoes | filter : search">
+					<td>{{ ligacao.calldate }}</td>
+					<td>{{ ligacao.duration }}</td>
+					<td>{{ ligacao.billsec }}</td>
+					<td>{{ ligacao.realsrc }}</td>
+					<td>{{ ligacao.realdst }}</td>
 				</tr>
 			</tbody>
 		</table>
