@@ -24,6 +24,7 @@ require_once _APP . '/middleware/middleware.php';
 require_once _APP . '/helpers/appHelpers.php';
 
 # === models
+require_once _APP . "/models/UserEntidade.php";
 require_once _APP . "/models/User.php";
 require_once _APP . "/models/Ligacao.php";
 

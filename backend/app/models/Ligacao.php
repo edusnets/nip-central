@@ -4,19 +4,8 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 class Ligacao extends Illuminate\Database\Eloquent\Model
 {
 	public function __construct(){
-		$settings = array(
-			'driver'	=> 'mysql',
-			'host'		=> '192.168.64.34',
-			'database'	=> 'nipcdr',
-			'username'	=> 'nextipweb',
-			'password'	=> 'teste',
-			'charset'	=> 'utf8',
-			'collation' => 'utf8_unicode_ci',
-			'prefix'	=> ''
-		);
-
 		$capsule = new Capsule;
-		$capsule->addConnection( $settings );
+		$capsule->addConnection(Database::nipcdr());
 		$capsule->bootEloquent();
 
 		/*

@@ -17,6 +17,7 @@ $app->post('/api/login', function() use ($app) {
 	}
 
 	$payload = array(
+		'id' 		=> $user->id,
 		'login' 	=> $user->login,
 		'nome'		=> $user->nome
 	);
