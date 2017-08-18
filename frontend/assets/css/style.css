@@ -6,7 +6,7 @@ html {
 }
 body {
 	/* Margin bottom by footer height */
-	margin-bottom: 60px;
+	margin-bottom: 60px;	
 }
 .footer {
 	position: absolute;
@@ -39,9 +39,15 @@ code {
 }
 
 .form-signin {
-	max-width: 330px;
-	padding: 15px;
-	margin: 0 auto;
+	width: 330px;
+    padding: 25px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    position: absolute;
+    background: #292929;
+    border-radius: 10px;
+    box-shadow: 0 0 50px -10px #333;
 }
 .form-signin .form-signin-heading,
 .form-signin .checkbox {
@@ -71,4 +77,8 @@ code {
 	margin-bottom: 10px;
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
+}
+
+#main-content{	
+    margin-top: 51px;
 }
