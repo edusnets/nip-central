@@ -181,9 +181,6 @@
          searchFilter,
          $stateParams) {
             $scope.detalhes = $stateParams.detalhes;
-
-
-            console.log($scope.detalhes)
         }
     ])
    .filter('search', function() {

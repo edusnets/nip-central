@@ -6,10 +6,11 @@ $app->post('/api/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware()
 	$payload 	= JWT::decode($token, ConfigJWT::key(), ConfigJWT::cypher());
 	$user 		= User::where('login', '=', $payload->login)->first();
 
-	$range 			= $app->request->post('range');
+	$ds = $app->request->post('date_start');
+	$de = $app->request->post('date_end');
 
-	$date_start		= isset($range['date_start']) ? $range['date_start'] : NULL;
-	$date_end		= isset($range['date_end']) ? $range['date_end'] : NULL;
+	$date_start		= isset($ds) ? $ds : NULL;
+	$date_end		= isset($de) ? $de : NULL;
 
 	$ligacoes 		= Ligacao::select([
 		'calldate as date',
