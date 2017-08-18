@@ -33,33 +33,33 @@
             $scope.rows = [];
 
             $scope.fields = [{
-                key: 'calldate',
+                key: 'date',
                 title: 'Data',
                 sortable: true
             }, {
-                key: 'realclid',
+                key: 'caller_id',
                 title: 'CallerID',
                 sortable: true
             }, {
-                key: 'realsrc',
+                key: 'origem',
                 title: 'Origem',
                 sortable: true
             }, {
-                key: 'realdst',
+                key: 'destino',
                 title: 'Destino',
                 sortable: true
             }, {
-                key: 'duration',
+                key: 'duracao',
                 title: 'Duração',
                 sortable: true,
                 hide: 'hidden-sm hidden-xs'
             }, {
-                key: 'billsec',
+                key: 'faturado',
                 title: 'Tarifado',
                 sortable: true,
                 hide: 'hidden-sm hidden-xs'
             },{
-                key: 'disposition',
+                key: 'status',
                 title: 'Status',
                 sortable: true
             }, {
@@ -67,21 +67,26 @@
                 title: 'Valor',
                 sortable: true
             }, {
-                key: 'accountcode',
+                key: 'conta',
                 title: 'Conta',
                 sortable: true
             }, {
-                key: 'realtransf',
+                key: 'transferido_por',
                 title: 'Transferido Por',
                 sortable: true,
                 hide: 'hidden-sm hidden-xs'
             }, {
-                key: 'realtipotransf',
+                key: 'tipo_transferencia',
                 title: 'Tipo Transf.',
                 sortable: true,
                 hide: 'hidden-sm hidden-xs'
             }, {
-                key: 'linkedid',
+                key: 'sentido',
+                title: 'Sentido',
+                sortable: true,
+                hide: 'hidden-sm hidden-xs'
+            }, {
+                key: 'id',
                 title: 'Id',
                 sortable: true,
                 hide: 'hidden-sm hidden-xs'
@@ -107,8 +112,8 @@
                         date_start : newRange.startDate,
                         date_end : newRange.endDate
                     }).then(function(response){                        
-                        $scope.rows = searchFilter(response.data, $scope.search);
-                        $scope.originalRows = response.data;
+                        $scope.rows = searchFilter(response.data.data, $scope.search);
+                        $scope.originalRows = response.data.data;
                     });
                 }                
             });
