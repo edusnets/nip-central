@@ -23,6 +23,7 @@ class ComposerStaticInit2416907a60fbd2b6c188bd35a57c1094
         ),
         'C' => 
         array (
+            'CorsSlim\\' => 9,
             'Carbon\\' => 7,
         ),
     );
@@ -39,6 +40,10 @@ class ComposerStaticInit2416907a60fbd2b6c188bd35a57c1094
         'Firebase\\JWT\\' => 
         array (
             0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
+        ),
+        'CorsSlim\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/palanik/corsslim',
         ),
         'Carbon\\' => 
         array (

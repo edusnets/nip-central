@@ -1,10 +1,20 @@
 <?php
 use \Firebase\JWT\JWT;
 
-$app->get('/api/ligacao', $JWTMiddleware, function() use ($app) {
-	$ligacoes 	= Ligacao::all();
-	$return 	= [];
+$app->post('/api/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), function() use ($app) {
+	$range 			= $app->request->post('range');
+	$date_start		= isset($range['date_start']) ? $range['date_start'] : NULL;
+	$date_end		= isset($range['date_end']) ? $range['date_end'] : NULL;
 
+	$ligacoes 		= Ligacao::where('id', '!=', 0);
+
+	if(!empty($date_start) and !empty($date_end)){
+		$ligacoes = $ligacoes->whereBetween('calldate', [$date_start . ' 00:00:00', $date_end . ' 23:59:59']);
+	}
+
+	$ligacoes 		= $ligacoes->get();
+	$return 		= [];
+	
 	foreach($ligacoes as $ligacao){
 		/*
 		Fields:
@@ -14,7 +24,7 @@ $app->get('/api/ligacao', $JWTMiddleware, function() use ($app) {
 		`realsrc` varchar(80) NOT NULL DEFAULT '',
 		`realdst` varchar(80) NOT NULL DEFAULT '',
 		`audio` varchar(255) NOT NULL DEFAULT '',
-		*/
+ 		*/
 
 		$return[] = [
 			'date' 		=> $ligacao->calldate,

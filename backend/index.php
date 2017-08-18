@@ -10,9 +10,12 @@ $app = new \Slim\Slim(array(
   'debug' => true
 ));
 
+$app->add(new \CorsSlim\CorsSlim());
+
 # === config
 require_once _APP . '/config/jwt.php';
 require_once _APP . '/config/database.php';
+require_once _APP . '/config/cors.php';
 
 # === middleware
 require_once _APP . '/middleware/middleware.php';
