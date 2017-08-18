@@ -7,8 +7,7 @@ $JWTMiddleware = function() use ($app){
 
 	try{
 		$decoded 	= JWT::decode($token, ConfigJWT::key(), ConfigJWT::cypher());
-	}catch(Exception $e){
-  		header("WWW-Authenticate: Basic realm=\"Secure Page\"");
+	}catch(Exception $e){  		
  		header("HTTP\ 1.0 401 Unauthorized");
 		header('Content-Type: application/json');
 	    echo Helpers::jsonResponse(401, 'Acesso não autorizado', ['O Token enviado não está autorizado. Efetue o login novamente.']);

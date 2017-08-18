@@ -37,7 +37,7 @@
                     return {
                         'request': function (config) {
                             config.headers = config.headers || {};
-                            config.headers.Authorization = 'Bearer ' + localStorageService.get(settings.token);
+                            config.headers.Authorization = localStorageService.get(settings.token);
 
                             return config;
                         },
