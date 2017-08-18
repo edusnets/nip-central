@@ -21,7 +21,7 @@ require_once _APP . '/config/cors.php';
 require_once _APP . '/middleware/middleware.php';
 
 # === helpers
-require_once _APP . '/helpers/appHelpers.php';
+require_once _APP . '/helpers/Helpers.php';
 
 # === models
 require_once _APP . "/models/UserEntidade.php";
@@ -29,6 +29,7 @@ require_once _APP . "/models/User.php";
 require_once _APP . "/models/Ligacao.php";
 
 # === controllers
+require_once _APP . "/controllers/HomeController.php";
 require_once _APP . "/controllers/LoginController.php";
 require_once _APP . "/controllers/LigacaoController.php";
 

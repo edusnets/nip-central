@@ -7,6 +7,6 @@ class ConfigJWT{
 	}
 
 	public static function cypher(){
-		return array('HS256');
+		return ['HS256'];
 	}
 }

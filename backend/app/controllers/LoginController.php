@@ -2,7 +2,7 @@
 
 use \Firebase\JWT\JWT;
 
-$app->post('/api/login', function() use ($app) {
+$app->post('/login', function() use ($app) {
 	$username = $app->request->post('username');
 	$password = $app->request->post('password');
 
@@ -16,11 +16,11 @@ $app->post('/api/login', function() use ($app) {
 		return Helpers::jsonResponse(401, 'Ocorreram erros de validação', ['Usuário ou senha inválidos']);
 	}
 
-	$payload = array(
+	$payload = [
 		'id' 		=> $user->id,
 		'login' 	=> $user->login,
 		'nome'		=> $user->nome
-	);
+	];
 
 	$token 		= JWT::encode($payload, ConfigJWT::key());
 
@@ -28,4 +28,3 @@ $app->post('/api/login', function() use ($app) {
 		'token' => $token
 	]);
 });
-

@@ -2,7 +2,6 @@
 use Slim\Slim;
 
 class Helpers {
-
 	static function jsonResponse( $status = 200, $message = '', $data = array() ) {
 		$app 		= Slim::getInstance();
 		$response 	= new stdClass();
@@ -20,5 +19,4 @@ class Helpers {
 		$app->response()->header('Content-Type', 'application/json');
 		return $app->response()->body( json_encode($response) );
 	}
-
 }

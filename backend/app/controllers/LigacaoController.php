@@ -1,7 +1,7 @@
 <?php
 use \Firebase\JWT\JWT;
 
-$app->post('/api/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), function() use ($app) {
+$app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), function() use ($app) {
 	$token 		= $app->request->headers->get('Authorization');
 	$payload 	= JWT::decode($token, ConfigJWT::key(), ConfigJWT::cypher());
 	$user 		= User::where('login', '=', $payload->login)->first();
