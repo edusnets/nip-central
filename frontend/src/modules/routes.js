@@ -17,7 +17,8 @@
                   templateUrl: 'src/template/app.html'
                },
                'navbar@app': {
-                  templateUrl: 'src/template/parts/navbar.html'
+                  templateUrl: 'src/template/parts/navbar.html',
+                  controller: 'NavbarCtrl'
                },
                'main@app': {
                   templateUrl: 'src/template/parts/main-content.html'
@@ -26,7 +27,7 @@
             resolve: ['localStorageService', 'settings', '$location',
                 function(localStorageService, settings, $location) {                    
                     if(!localStorageService.get(settings.token)){                        
-                        $location.path('/login')
+                        $location.href('/login')
                     }
                 }
             ]
@@ -36,9 +37,23 @@
             views: {
                'content': {
                   controller : 'LigacaoCtrl',
-                  templateUrl: 'src/modules/ligacao/view.html'
+                  templateUrl: 'src/modules/ligacao/wrap.view.html'
+               },
+               'ligacao@app.ligacao': {
+                  controller : 'LigacaoPesquisaCtrl',
+                  templateUrl: 'src/modules/ligacao/pesquisa.view.html'
                }
             }
+         })
+         .state('app.ligacao.detalhes', {
+            url: '/detalhes',
+            views: {
+               'ligacao@app.ligacao': {
+                  controller : 'LigacaoDetalhesCtrl',
+                  templateUrl: 'src/modules/ligacao/detalhes.view.html'
+               }
+            },
+            params: {detalhes : null}
          })
         .state('login', {
             url: '/login',
@@ -51,7 +66,7 @@
             resolve: ['localStorageService', 'settings', '$location',
                 function(localStorageService, settings, $location) {                    
                     if(localStorageService.get(settings.token)){                        
-                        $location.path('/ligacao')
+                        $location.href('/ligacao')
                     }
                 }
             ]

@@ -2,16 +2,20 @@
    angular.module('NipCentral', [
       'ui.router',
       'ngSanitize',
-      'LocalStorageModule'
+      'LocalStorageModule',
+      'daterangepicker',
+      'ngMinimalGrid'
    ])
    .config([
         '$httpProvider',
         '$locationProvider',
         'localStorageServiceProvider',
+        'minimalGridConfigProvider',
         function(
             $httpProvider,
             $locationProvider,
-            localStorageServiceProvider) {
+            localStorageServiceProvider,
+            minimalGridConfigProvider) {
 
             localStorageServiceProvider
             .setPrefix('')
@@ -19,6 +23,10 @@
             .setDefaultToCookie(false);
 
             // $locationProvider.html5Mode(true).hashPrefix('');
+
+            minimalGridConfigProvider.setStatsMessage('Mostrando %1 à %2 de %3 resultados')
+            minimalGridConfigProvider.setFirstLabel('Primeiro')
+            minimalGridConfigProvider.setLastLabel('Último')
 
             $httpProvider.interceptors.push([
                 '$q',

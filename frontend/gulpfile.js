@@ -100,7 +100,7 @@ gulp.task("generate-index", function() {
             }), {
                name: 'vendor-styles',
                transform: function (filepath, file, i, length) {
-                  return '<link rel="stylesheet" type="text/css" href="' + filepath + '">';
+                  return '<link rel="stylesheet" type="text/css" href="' + filepath.replace('dist/', '') + '">';
                }
             }
          )
@@ -112,7 +112,7 @@ gulp.task("generate-index", function() {
             }), {
                name: 'modules-styles',
                transform: function (filepath, file, i, length) {
-                  return '<link rel="stylesheet" type="text/css" href="' + filepath + '">';
+                  return '<link rel="stylesheet" type="text/css" href="' + filepath.replace('dist/', '') + '">';
                }
             }
          )
@@ -124,7 +124,7 @@ gulp.task("generate-index", function() {
             }), {
                name: 'vendor-scripts',
                transform: function (filepath, file, i, length) {
-                  return '<script type="text/javascript" src="' + filepath + '"></script>';
+                  return '<script type="text/javascript" src="' + filepath.replace('dist/', '') + '"></script>';
                }
             }
          )
@@ -136,7 +136,7 @@ gulp.task("generate-index", function() {
             }), {
                name: 'modules-scripts',
                transform: function (filepath, file, i, length) {                  
-                  return '<script type="text/javascript" src="' + filepath + '"></script>';
+                  return '<script type="text/javascript" src="' + filepath.replace('dist/', '') + '"></script>';
                }
             }
          )
@@ -148,7 +148,7 @@ gulp.task("generate-index", function() {
             }), {
                name: 'directives-scripts',
                transform: function (filepath, file, i, length) {
-                  return '<script type="text/javascript" src="' + filepath + '"></script>';
+                  return '<script type="text/javascript" src="' + filepath.replace('dist/', '') + '"></script>';
                }
             }
          )

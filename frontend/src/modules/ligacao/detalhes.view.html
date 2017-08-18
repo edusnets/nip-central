@@ -1,0 +1,89 @@
+<br><br>
+<div id="ligacao-detalhes">
+	<div class="row" style="margin-top: 20px">
+		<div class="col-md-6">
+			<h4>Origem</h4>
+			<h2 style="margin-top: 0;">{{detalhes.realsrc}}</h2>
+		</div>
+		<div class="col-md-6">
+			<h4>Destino</h4>
+			<h2 style="margin-top: 0;">{{detalhes.realdst}}</h2>
+		</div>
+	</div>
+	<div class="row" style="margin-top: 20px">
+		<div class="col-md-12">
+			<table style="width: 100%;">
+				<tr>
+					<td><h5><strong>Id</strong></h5></td>
+					<td><h5>{{detalhes.linkedid}}</h5></td>
+				</tr>
+				<tr>
+					<td><h5><strong>Data</strong></h5></td>
+					<td><h5>{{detalhes.calldate}}</h5></td>
+				</tr>
+				<tr>
+					<td><h5><strong>Status</strong></h5></td>
+					<td><h5>{{detalhes.disposition}}</h5></td>
+				</tr>
+				<tr>
+					<td><h5><strong>Áudio</strong></h5></td>
+					<td>
+						<audio style="width: 100%;" controls>
+							<source ng-src="{{detalhes.audio}}" type="audio/wav">						
+							Seu browser não suporta este player. Por favor, entre em contato com o nosso suporte.
+						</audio>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="row" style="margin-top: 20px">
+		<div class="col-md-12">
+			<table style="width: 100%;">
+				<tr>
+					<td><h5><strong>CallerID</strong></h5></td>
+					<td><h5>{{detalhes.realclid}}</h5></td>
+				</tr>
+				<tr>
+					<td><h5><strong>Conta</strong></h5></td>
+					<td><h5>{{detalhes.accountcode}}</h5></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="row" style="margin-top: 20px">
+		<div class="col-md-12">
+			<table style="width: 100%;">
+				<tr>
+					<td><h5><strong>Transferido Por</strong></h5></td>
+					<td><h5>{{detalhes.realtransf}}</h5></td>
+				</tr>
+				<tr>
+					<td><h5><strong>Tipo de Transferência</strong></h5></td>
+					<td><h5>{{detalhes.realtipotransf}}</h5></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="row" style="margin-top: 20px">
+		<div class="col-md-12">
+			<table style="width: 100%;">
+				<tr>
+					<td><h5><strong>Duração</strong></h5></td>
+					<td><h5>{{detalhes.duration}}</h5></td>
+				</tr>
+				<tr>
+					<td><h5><strong>Tarifado</strong></h5></td>
+					<td><h5>{{detalhes.billsec}}</h5></td>
+				</tr>
+				<tr>
+					<td><h5><strong>Valor</strong></h5></td>
+					<td><h5>{{detalhes.valor}}</h5></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<br>
+	<br>
+</div>
