@@ -9,5 +9,6 @@ return array(
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Symfony\\Component\\Translation\\' => array($vendorDir . '/symfony/translation'),
     'Firebase\\JWT\\' => array($vendorDir . '/firebase/php-jwt/src'),
+    'CorsSlim\\' => array($vendorDir . '/palanik/corsslim'),
     'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
 );

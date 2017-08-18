@@ -10,13 +10,14 @@ $app->post('/api/login', function() use ($app) {
 		return Helpers::jsonResponse(401, 'Ocorreram erros de validação', ['O usuário e a senha são obrigatorios']);
 	}
 
-	$user = User::where('login', '=', $username)->where('senha', '=', $password)->first();
+	$user = User::where('login', '=', $username)->where('senha', '=', hash('SHA256', $password))->first();
 
 	if(empty($user)){
 		return Helpers::jsonResponse(401, 'Ocorreram erros de validação', ['Usuário ou senha inválidos']);
 	}
 
 	$payload = array(
+		'id' 		=> $user->id,
 		'login' 	=> $user->login,
 		'nome'		=> $user->nome
 	);
