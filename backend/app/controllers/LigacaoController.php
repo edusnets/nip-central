@@ -1,16 +1,16 @@
 <?php
 use \Firebase\JWT\JWT;
 
-$app->post('/api/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), function() use ($app) {
+$app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), function() use ($app) {
 	$token 		= $app->request->headers->get('Authorization');
 	$payload 	= JWT::decode($token, ConfigJWT::key(), ConfigJWT::cypher());
 	$user 		= User::where('login', '=', $payload->login)->first();
 
-	$ds = $app->request->post('date_start');
-	$de = $app->request->post('date_end');
+	$body = $app->request->getBody();
+    $data = json_decode($body, true);
 
-	$date_start		= isset($ds) ? $ds : NULL;
-	$date_end		= isset($de) ? $de : NULL;
+	$date_start		= isset($data->date_start) ? $data->date_start : NULL;
+	$date_end		= isset($data->date_end) ? $data->date_end : NULL;
 
 	$ligacoes 		= Ligacao::select([
 		'calldate as date',

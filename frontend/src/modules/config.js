@@ -59,7 +59,7 @@
         }
    ])
    .constant("settings", {
-      api: "http://192.169.63.95:4445/api",
+      api: "http://192.168.63.95:4445/api",
       token: 'nip_central'
    });
 })();
