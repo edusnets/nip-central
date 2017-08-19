@@ -64,9 +64,9 @@
                }
             },
             resolve: ['localStorageService', 'settings', '$location',
-                function(localStorageService, settings, $location) {                    
-                    if(localStorageService.get(settings.token)){                        
-                        $location.href('/ligacao')
+                function(localStorageService, settings, $location) {                                        
+                    if(localStorageService.get(settings.token)){
+                        location.href = '#!/ligacao'
                     }
                 }
             ]

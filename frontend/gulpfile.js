@@ -70,7 +70,8 @@ gulp.task("vendor-scripts", function() {
 });
 
 gulp.task('vendor-styles', function() {
-   return gulp.src(config.vendor.src + '/*.min.css')
+   return gulp.src([config.vendor.src + '/*.min.css', config.vendor.src + 'bootstrap-daterangepicker/daterangepicker.css'])      
+      // .pipe(csso())
       .pipe(concat('vendor.concat.css'))
       .pipe(rename(Date.now() + '.vendor.min.css'))
       .pipe(gulp.dest(config.vendor.dest));
