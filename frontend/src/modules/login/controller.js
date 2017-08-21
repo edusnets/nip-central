@@ -6,6 +6,7 @@
       '$state',
       'localStorageService',
       'LoginService',
+      'TemplateService',
       'settings',
       function(
          $scope,
@@ -13,6 +14,7 @@
          $state,
          localStorageService,
          LoginService,
+         TemplateService,
          settings) {
 
             $scope.user = {
@@ -23,7 +25,7 @@
             $scope.entrar = function() {
                 if (localStorageService.isSupported) {
                     LoginService.entrar($scope.user)
-                    .then(function(result) {                        
+                    .then(function(result) {    
                         localStorageService.set(settings.token, result.data.data.token)
                         $state.go('app.ligacao')
                     },
