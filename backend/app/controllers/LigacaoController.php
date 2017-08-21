@@ -13,7 +13,6 @@ $app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), fu
 	$date_end		= isset($data->date_end) ? $data->date_end : NULL;
 
 	$selectFields = [
-		'calldate as date_str',
 		'calldate as date',
 		'duration as duracao',
 		'audio as audio',
@@ -47,10 +46,6 @@ $app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), fu
 	}
 
 	$data = $ligacoes->orderBy('date','desc')->get()->toArray();
-
-	foreach($data as &$value){
-		$value['date'] = strtotime($value['date'].' UTC');
-	}
 
 	return Helpers::jsonResponse(200, 'Okey', $data);
 });
