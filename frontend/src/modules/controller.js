@@ -4,10 +4,13 @@
       '$scope',
       'settings',
       'localStorageService',
+      'TemplateService',
       function(
          $scope,
          settings,
-         localStorageService) {
+         localStorageService,
+         TemplateService) {
+              $scope.payload = TemplateService.get();
              $scope.logout = function(){
                 localStorageService.clearAll();
              }
