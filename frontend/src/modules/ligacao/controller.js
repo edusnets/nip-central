@@ -50,7 +50,10 @@
                 key: 'date',
                 title: 'Data',
                 sortable: true,
-                formatDate: 'dd/MM/yyyy HH:mm:ss'
+                onRender: function(val){
+                    return val.substr(8,2)+'/'+val.substr(5,2)+'/'+val.substr(0,4)+' '+val.substr(11,8)
+                }
+                // formatDate: 'dd/MM/yyyy HH:mm:ss'
             }, {
                 key: 'caller_id',
                 title: 'CallerID',
@@ -131,8 +134,8 @@
                 if(newRange){
                     progressBarTop.start();
                     LigacaoService.get({
-                        date_start : newRange.startDate,
-                        date_end : newRange.endDate
+                        date_start : moment(newRange.startDate),
+                        date_end : moment(newRange.endDate)
                     }).then(function(response){                        
                         $scope.rows = searchFilter(response.data.data, $scope.search);
                         $scope.originalRows = response.data.data;
