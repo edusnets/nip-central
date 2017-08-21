@@ -22,14 +22,17 @@
       'settings',
       'LigacaoService',
       'searchFilter',
+      'ProgressBarsStorage',
       function(
          $scope,
          $http,
          $state,
          settings,
          LigacaoService,
-         searchFilter) {
-             
+         searchFilter,
+         ProgressBarsStorage) {
+            
+            var progressBarTop = ProgressBarsStorage.get('main');
             $scope.rows = [];
 
             $scope.fields = [{
@@ -109,12 +112,15 @@
 
             $scope.$watch('range', function(newRange){
                 if(newRange){
+                    progressBarTop.start();
                     LigacaoService.get({
                         date_start : newRange.startDate,
                         date_end : newRange.endDate
                     }).then(function(response){                        
                         $scope.rows = searchFilter(response.data.data, $scope.search);
                         $scope.originalRows = response.data.data;
+                    }).finally(function(){
+                        progressBarTop.done();
                     });
                 }                
             });

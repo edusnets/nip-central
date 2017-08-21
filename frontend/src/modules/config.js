@@ -4,7 +4,8 @@
       'ngSanitize',
       'LocalStorageModule',
       'daterangepicker',
-      'ngMinimalGrid'
+      'ngMinimalGrid',
+      'pg.progress-bars'
    ])
    .config([
         '$httpProvider',
