@@ -121,7 +121,7 @@
             $scope.$watch('search', function(newStr){
                 $scope.rows = searchFilter($scope.originalRows, newStr);
             });
-        
+
             $scope.options = {
                 locale: {
                     format: 'DD/MM/YYYY',
@@ -155,6 +155,9 @@
                         'Novembro',
                         'Dezembro'
                     ]
+                },
+                dateLimit: { 
+                    "days":31 
                 },
                 ranges: {
                     'Hoje': [
