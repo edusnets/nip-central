@@ -102,7 +102,7 @@
             }
 
             $scope.range = {
-                startDate: moment().subtract(6, 'days'),
+                startDate: moment(),
                 endDate: moment()
             }
 
