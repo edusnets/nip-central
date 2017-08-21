@@ -1,4 +1,4 @@
-<div class="row">
+<div id="ligacao-pesq" class="row" ng-show="state == 'app.ligacao'">
 	<div class="col-md-12" style="margin: 20px 0">		
 		<div style="border: 2px solid #ddd;margin-bottom: -6px;background: #f9f9f9;padding: 15px 0 0;">
 			<div class="col-md-4">
@@ -23,3 +23,5 @@
 		<minimal-grid columns="fields" on-click-row="showDetails(row)" rows="rows" pagination-max="30"></minimal-grid>
 	</div>
 </div>
+
+<div ui-view="details"></div>            

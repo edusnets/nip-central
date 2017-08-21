@@ -32,7 +32,7 @@
                 }
             ]
          })         
-         .state('app.ligacao', {
+         .state('app.ligacao', {            
             url: 'ligacao',
             views: {
                'content': {
@@ -48,7 +48,7 @@
          .state('app.ligacao.detalhes', {
             url: '/detalhes',
             views: {
-               'ligacao@app.ligacao': {
+               'details@app.ligacao': {
                   controller : 'LigacaoDetalhesCtrl',
                   templateUrl: 'src/modules/ligacao/detalhes.view.html'
                }
