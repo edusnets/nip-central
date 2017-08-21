@@ -33,12 +33,12 @@
                 '$q',
                 'localStorageService',
                 '$location',
-                'settings',
-                function($q, localStorageService, $location, settings){
+                'Settings',
+                function($q, localStorageService, $location, Settings){
                     return {
                         'request': function (config) {
                             config.headers = config.headers || {};
-                            config.headers.Authorization = localStorageService.get(settings.token);
+                            config.headers.Authorization = localStorageService.get(Settings.token);
 
                             return config;
                         },
@@ -59,9 +59,5 @@
             delete $httpProvider.defaults.headers.common['X-Requested-With'];
         }
    ])
-   .constant("settings", {
-    //   api: "http://192.168.63.95:4445/api",
-      api: "http://192.168.55.101:8081",
-      token: 'nip_central'
-   });
+   .constant("env", "dev"); //dev || dev-remote || prod
 })();

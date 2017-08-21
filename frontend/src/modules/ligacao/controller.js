@@ -2,14 +2,10 @@
    angular.module('NipCentral')
    .controller('LigacaoCtrl', [
       '$scope',
-      '$http',
-      'settings',
       'LigacaoService',
       'searchFilter',
       function(
          $scope,
-         $http,
-         settings,
          LigacaoService,
          searchFilter) {
             
@@ -17,17 +13,13 @@
     ])
    .controller('LigacaoPesquisaCtrl', [
       '$scope',
-      '$http',
       '$state',
-      'settings',
       'LigacaoService',
       'searchFilter',
       'ProgressBarsStorage',
       function(
          $scope,
-         $http,
          $state,
-         settings,
          LigacaoService,
          searchFilter,
          ProgressBarsStorage) {
@@ -208,15 +200,11 @@
    )
    .controller('LigacaoDetalhesCtrl', [
       '$scope',
-      '$http',
-      'settings',
       'LigacaoService',
       'searchFilter',
       '$stateParams',
       function(
          $scope,
-         $http,
-         settings,
          LigacaoService,
          searchFilter,
          $stateParams) {

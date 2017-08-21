@@ -6,7 +6,7 @@ class Ligacao extends Illuminate\Database\Eloquent\Model
 	public function __construct(){
 		$capsule = new Capsule;
 		$capsule->addConnection(Database::nipcdr());
-		$capsule->bootEloquent();
+		$capsule->bootEloquent();		
 
 		/*
 		Fields:
