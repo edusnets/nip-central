@@ -6,7 +6,7 @@
     <input type="text" id="inputEmail" name="username" class="form-control" placeholder="Usuário" required="" autofocus="" ng-model="user.username">
     <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required="" ng-model="user.password">
     
-    <button class="btn btn-lg btn-primary btn-block" type="button" ng-click="entrar()">Entrar</button>
+    <button id="myButton" class="btn btn-lg btn-primary btn-block" type="button" ng-click="entrar()" ng-disabled="buttonDisabled">{{ buttonLabel }}</button>
 </form>
 
 <script>

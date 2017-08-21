@@ -21,9 +21,12 @@
                 username: "",
                 password: ""
             }
-
+            $scope.buttonLabel = "Entrar"
+            $scope.buttonDisabled = false;
             $scope.entrar = function() {
                 if (localStorageService.isSupported) {
+                    $scope.buttonDisabled = true;
+                    $scope.buttonLabel = "Entrando ..."
                     LoginService.entrar($scope.user)
                     .then(function(result) {                        
                         localStorageService.set(Settings.token, result.data.data.token)
@@ -31,6 +34,9 @@
                     },
                     function() {                        
                         alert("Acesso não autorizado!")
+                    }).finally(function(){
+                        $scope.buttonDisabled = false;
+                        $scope.buttonLabel = "Entrar"
                     });
 
                 } else {
