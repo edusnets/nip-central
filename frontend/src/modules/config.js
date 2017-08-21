@@ -60,7 +60,7 @@
    ])
    .constant("settings", {
     //   api: "http://192.168.63.95:4445/api",
-      api: "http://127.0.0.1/nip-central/backend/",
+      api: "http://127.0.0.1:8001",
       token: 'nip_central'
    });
 })();

@@ -25,7 +25,7 @@ class Helpers {
 		$random = null;
 
 		for($i = 0; $i <= $length; $i++){
-			$random .= $strs{rand(0, strlen($strs))};
+			$random .= $strs{rand(0, strlen($strs-1))};
 		}
 
 		return $random;
