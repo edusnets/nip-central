@@ -1,4 +1,4 @@
-<form class="form-signin">
+<form class="form-signin" name="form-signin">
     <h3 class="form-signin-heading">
         <img src="assets/images/logo-white-text-bg.svg" style="display: block;margin: 0 auto;width: 220px;">
     </h3>
@@ -8,3 +8,15 @@
     
     <button class="btn btn-lg btn-primary btn-block" type="button" ng-click="entrar()">Entrar</button>
 </form>
+
+<script>
+    jQuery('.form-signin').keypress(function(e){
+        if(e.charCode === 13){        
+            var btn = jQuery("form[name=\"form-signin\"] .btn-primary");
+
+            if((!btn.attr('disabled')) && (!btn.is(':focus'))){            
+                btn.click();
+            }
+        }
+    });
+</script>
