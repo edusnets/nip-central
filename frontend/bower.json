@@ -16,17 +16,24 @@
     "test",
     "tests"
   ],
-  "dependencies": {
-    "jquery-3.2.1.slim.min": "https://code.jquery.com/jquery-3.2.1.slim.min.js",
+  "dependencies": {    
+    "jquery-3.2.1.slim.min": "https://code.jquery.com/jquery-3.2.1.slim.min.js",    
+    "font-awesome": "^4.7.0",    
+    "bootstrap": "3.3.7",
     "angular": "^1.6.1",
     "angular-animate": "^1.6.1",
     "angular-aria": "^1.6.1",
     "angular-messages": "^1.6.1",
     "angular-ui-router": "^0.4.2",
     "angular-sanitize": "^1.6.1",
-    "font-awesome": "^4.7.0",
-    "angular-bootstrap": "2.5.0",
-    "bootstrap": "3.3.7",
-    "angular-local-storage": "^0.7.1"
+    "moment": "^2.9.0",    
+    "angular-local-storage": "^0.7.1",    
+    "bootstrap-daterangepicker": "^2.1.25",    
+    "angular-daterangepicker": "^0.2.2",
+    "angular-minimal-grid": "custom-layout"
+  },
+  "resolutions": {
+    "jquery-3.2.1.slim.min": "https://code.jquery.com/jquery-3.2.1.slim.min.js",
+    "angular": "^1.6.1"
   }
 }

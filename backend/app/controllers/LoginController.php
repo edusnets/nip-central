@@ -3,8 +3,11 @@
 use \Firebase\JWT\JWT;
 
 $app->post('/login', function() use ($app) {
-	$username = $app->request->post('username');
-	$password = $app->request->post('password');
+	$body = $app->request->getBody();
+    $data = json_decode($body, false);
+
+	$username = $data->email;
+	$password = $data->password;
 
 	if(!$username OR !$password){
 		return Helpers::jsonResponse(401, 'Ocorreram erros de validação', ['O usuário e a senha são obrigatorios']);

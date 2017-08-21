@@ -34,14 +34,14 @@ gulp.task('modules-styles', function() {
 });
 
 gulp.task('modules-scripts', function() {
-   return gulp.src(config.modules.src+'/*.js')
+   return gulp.src(config.modules.src + '/*.js')
       .pipe(babel({
          presets: ['es2015']
       }))
       .pipe(ngEmbedTemplates({ basePath: './' }))
       .pipe(concat('modules.concat.js'))
-      .pipe(rename(Date.now() + '.modules.min.js'))
-      .pipe(uglify())
+      // .pipe(uglify())
+      .pipe(rename(Date.now() + '.modules.min.js'))      
       .pipe(gulp.dest(config.modules.dest));
 });
 
@@ -63,17 +63,15 @@ gulp.task('directives-scripts', function() {
 });
 
 gulp.task("vendor-scripts", function() {
-   return gulp.src(mainBowerFiles('**/*.js'))
-      .pipe(babel({
-         presets: ['es2015']
-      }))
+   return gulp.src(mainBowerFiles(['!**/*.min.js','**/*.js']))      
       .pipe(concat(Date.now() + '.vendor.min.js'))
       .pipe(uglify())
       .pipe(gulp.dest(config.vendor.dest));
 });
 
 gulp.task('vendor-styles', function() {
-   return gulp.src(config.vendor.src + '/*.min.css')
+   return gulp.src([config.vendor.src + '/*.min.css', config.vendor.src + 'bootstrap-daterangepicker/daterangepicker.css'])      
+      // .pipe(csso())
       .pipe(concat('vendor.concat.css'))
       .pipe(rename(Date.now() + '.vendor.min.css'))
       .pipe(gulp.dest(config.vendor.dest));
@@ -86,9 +84,9 @@ gulp.task('fonts', function () {
 });
 
 gulp.task('imgs', function () {
-  return gulp.src('assets/imgs/**/*')
+  return gulp.src('assets/images/**/*')
     .pipe(flatten())
-    .pipe(gulp.dest('dist/assets/imgs/'));
+    .pipe(gulp.dest('dist/assets/images/'));
 });
 
 gulp.task("generate-index", function() {
@@ -100,7 +98,7 @@ gulp.task("generate-index", function() {
             }), {
                name: 'vendor-styles',
                transform: function (filepath, file, i, length) {
-                  return '<link rel="stylesheet" type="text/css" href="' + filepath + '">';
+                  return '<link rel="stylesheet" type="text/css" href="' + filepath.replace('dist/', '') + '">';
                }
             }
          )
@@ -112,7 +110,7 @@ gulp.task("generate-index", function() {
             }), {
                name: 'modules-styles',
                transform: function (filepath, file, i, length) {
-                  return '<link rel="stylesheet" type="text/css" href="' + filepath + '">';
+                  return '<link rel="stylesheet" type="text/css" href="' + filepath.replace('dist/', '') + '">';
                }
             }
          )
@@ -124,7 +122,7 @@ gulp.task("generate-index", function() {
             }), {
                name: 'vendor-scripts',
                transform: function (filepath, file, i, length) {
-                  return '<script type="text/javascript" src="' + filepath + '"></script>';
+                  return '<script type="text/javascript" src="' + filepath.replace('dist/', '') + '"></script>';
                }
             }
          )
@@ -136,7 +134,7 @@ gulp.task("generate-index", function() {
             }), {
                name: 'modules-scripts',
                transform: function (filepath, file, i, length) {                  
-                  return '<script type="text/javascript" src="' + filepath + '"></script>';
+                  return '<script type="text/javascript" src="' + filepath.replace('dist/', '') + '"></script>';
                }
             }
          )
@@ -148,7 +146,7 @@ gulp.task("generate-index", function() {
             }), {
                name: 'directives-scripts',
                transform: function (filepath, file, i, length) {
-                  return '<script type="text/javascript" src="' + filepath + '"></script>';
+                  return '<script type="text/javascript" src="' + filepath.replace('dist/', '') + '"></script>';
                }
             }
          )

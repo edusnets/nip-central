@@ -82,3 +82,28 @@ code {
 #main-content{	
     margin-top: 51px;
 }
+
+#ligacao-detalhes table{
+	width: 100%;box-shadow: 0 0 25px -12px #333;
+}
+#ligacao-detalhes table tr td{
+	padding: 4px 15px;
+	margin: 0 0;
+	border: 2px solid #fff;
+}
+
+#ligacao-detalhes table tr td:nth-child(1){
+	text-align: right;
+	width: 25%;
+	min-width: 200px;
+	background: rgba(222, 222, 222, 0.5);
+	text-transform: uppercase;		
+}
+
+#ligacao-detalhes table tr td:nth-child(2){		
+	background: rgba(239, 239, 239, 0.5);
+}
+
+#ligacao-detalhes table tr:nth-child(odd){
+	background: #f0f0f0;
+}

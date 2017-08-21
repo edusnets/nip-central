@@ -1,0 +1,88 @@
+<div id="ligacao-detalhes" style="padding-top: 20px;border-top: 2px dashed #f0f0f0;margin-top: 30px;">
+	<div class="row">
+		<div class="col-md-6">
+			<h4>Origem</h4>
+			<h2 style="margin-top: 0;">{{detalhes.origem}}</h2>
+		</div>
+		<div class="col-md-6">
+			<h4>Destino</h4>
+			<h2 style="margin-top: 0;">{{detalhes.destino}}</h2>
+		</div>
+	</div>
+	<div class="row" style="margin-top: 20px">
+		<div class="col-md-12">
+			<table style="width: 100%;">
+				<tr>
+					<td><h5><strong>Id</strong></h5></td>
+					<td><h5>{{detalhes.id}}</h5></td>
+				</tr>
+				<tr>
+					<td><h5><strong>Data</strong></h5></td>
+					<td><h5>{{detalhes.date}}</h5></td>
+				</tr>
+				<tr>
+					<td><h5><strong>Status</strong></h5></td>
+					<td><h5>{{detalhes.status}}</h5></td>
+				</tr>
+				<tr>
+					<td><h5><strong>Áudio</strong></h5></td>
+					<td>
+						<audio style="width: 100%;" controls>
+							<source ng-src="{{detalhes.audio}}" type="audio/wav">						
+							Seu browser não suporta este player. Por favor, entre em contato com o nosso suporte.
+						</audio>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="row" style="margin-top: 20px">
+		<div class="col-md-12">
+			<table style="width: 100%;">
+				<tr>
+					<td><h5><strong>CallerID</strong></h5></td>
+					<td><h5>{{detalhes.caller_id}}</h5></td>
+				</tr>
+				<tr>
+					<td><h5><strong>Conta</strong></h5></td>
+					<td><h5>{{detalhes.conta}}</h5></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="row" style="margin-top: 20px">
+		<div class="col-md-12">
+			<table style="width: 100%;">
+				<tr>
+					<td><h5><strong>Transferido Por</strong></h5></td>
+					<td><h5>{{detalhes.transferido_por}}</h5></td>
+				</tr>
+				<tr>
+					<td><h5><strong>Tipo de Transferência</strong></h5></td>
+					<td><h5>{{detalhes.tipo_transferencia}}</h5></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="row" style="margin-top: 20px">
+		<div class="col-md-12">
+			<table style="width: 100%;">
+				<tr>
+					<td><h5><strong>Duração</strong></h5></td>
+					<td><h5>{{detalhes.duracao}}</h5></td>
+				</tr>
+				<tr>
+					<td><h5><strong>Tarifado</strong></h5></td>
+					<td><h5>{{detalhes.faturado}}</h5></td>
+				</tr>
+				<tr>
+					<td><h5><strong>Valor</strong></h5></td>
+					<td><h5>{{detalhes.valor}}</h5></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<br>
+	<br>
+</div>
