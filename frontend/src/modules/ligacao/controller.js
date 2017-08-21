@@ -102,8 +102,8 @@
             }
 
             $scope.range = {
-                startDate: moment(moment().subtract(6, 'days'), moment()).format('YYYY-MM-DD'),
-                endDate: moment().format('YYYY-MM-DD')
+                startDate: moment().subtract(6, 'days'),
+                endDate: moment()
             }
 
             $scope.$watch('range', function(newRange){
@@ -125,7 +125,7 @@
             $scope.options = {
                 locale: {
                     format: 'DD/MM/YYYY',
-                    separator: '-',
+                    separator: ' - ',
                     applyLabel: "Confirmar",
                     fromLabel: "De",
                     toLabel: "Até",
