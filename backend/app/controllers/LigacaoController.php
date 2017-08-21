@@ -20,7 +20,6 @@ $app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), fu
 		'realsrc as origem',
 		'realdst as destino',
 		'realclid as caller_id',
-		'billsec as faturado',
 		'disposition as status',
 		'valor as valor',
 		'accountcode as conta',
@@ -46,8 +45,11 @@ $app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), fu
 		$ligacoes = $ligacoes->whereBetween('calldate', [substr($date_start, 0, 10) . ' 00:00:00', substr($date_end, 0, 10) . ' 23:59:59']);
 	}
 
-	$ligacoes 		= $ligacoes->get();
-	$return 		= [];
+	$data = $ligacoes->orderBy('date','desc')->get()->toArray();
+	foreach($data as &$value){
+		$value['date'] = strtotime($value['date'].' UTC');
+	}
 
-	return Helpers::jsonResponse(200, 'Okey', $ligacoes->toArray());
+	return Helpers::jsonResponse(200, 'Okey', $data);
 });
+

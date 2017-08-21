@@ -35,7 +35,8 @@
             $scope.fields = [{
                 key: 'date',
                 title: 'Data',
-                sortable: true
+                sortable: true,
+                formatDate: 'dd/MM/yyyy HH:mm:ss'
             }, {
                 key: 'caller_id',
                 title: 'CallerID',
