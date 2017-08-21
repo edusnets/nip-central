@@ -16,7 +16,7 @@
          settings) {
 
             $scope.user = {
-                email: "",
+                username: "",
                 password: ""
             }
 
