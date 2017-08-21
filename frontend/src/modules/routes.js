@@ -24,9 +24,9 @@
                   templateUrl: 'src/template/parts/main-content.html'
                }
             }, 
-            resolve: ['localStorageService', 'settings', '$location',
-                function(localStorageService, settings, $location) {                    
-                    if(!localStorageService.get(settings.token)){                        
+            resolve: ['localStorageService', 'Settings', '$location',
+                function(localStorageService, Settings, $location) {                    
+                    if(!localStorageService.get(Settings.token)){                        
                         $location.href('/login')
                     }
                 }
@@ -63,9 +63,9 @@
                   templateUrl: 'src/modules/login/view.html'
                }
             },
-            resolve: ['localStorageService', 'settings', '$location',
-                function(localStorageService, settings, $location) {                                        
-                    if(localStorageService.get(settings.token)){
+            resolve: ['localStorageService', 'Settings', '$location',
+                function(localStorageService, Settings, $location) {                                        
+                    if(localStorageService.get(Settings.token)){
                         location.href = '#!/ligacao'
                     }
                 }

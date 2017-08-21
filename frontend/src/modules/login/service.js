@@ -2,11 +2,11 @@
     angular.module('NipCentral')
     .service('LoginService', [
         '$http',
-        'settings',
-        function($http, settings){
+        'Settings',
+        function($http, Settings){
 
             function entrar(credentials){
-                return $http.post(settings.api + '/login', credentials);                
+                return $http.post(Settings.api + '/login', credentials);                
             }
 
             return {

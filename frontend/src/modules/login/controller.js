@@ -6,14 +6,14 @@
       '$state',
       'localStorageService',
       'LoginService',
-      'settings',
+      'Settings',
       function(
          $scope,
          $http,
          $state,
          localStorageService,
          LoginService,
-         settings) {
+         Settings) {
 
             $scope.user = {
                 username: "",
@@ -24,7 +24,7 @@
                 if (localStorageService.isSupported) {
                     LoginService.entrar($scope.user)
                     .then(function(result) {                        
-                        localStorageService.set(settings.token, result.data.data.token)
+                        localStorageService.set(Settings.token, result.data.data.token)
                         $state.go('app.ligacao')
                     },
                     function() {                        

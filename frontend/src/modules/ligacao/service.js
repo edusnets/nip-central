@@ -2,11 +2,11 @@
     angular.module('NipCentral')
     .service('LigacaoService', [
        '$http',
-        'settings',
-        function($http, settings){
+        'Settings',
+        function($http, Settings){
 
             function get(filter){                
-                return $http.post(settings.api + '/ligacao', filter);                
+                return $http.post(Settings.api + '/ligacao', filter);                
             }
 
             return {
