@@ -6,7 +6,7 @@ $app->post('/login', function() use ($app) {
 	$body = $app->request->getBody();
     $data = json_decode($body, false);
 
-	$username = $data->email;
+	$username = $data->username;
 	$password = $data->password;
 
 	if(!$username OR !$password){
@@ -22,7 +22,9 @@ $app->post('/login', function() use ($app) {
 	$payload = [
 		'id' 		=> $user->id,
 		'login' 	=> $user->login,
-		'nome'		=> $user->nome
+		'nome'		=> $user->nome,
+		'iat'		=> time(),
+		'jti'		=> Helpers::str_random(28)
 	];
 
 	$token 		= JWT::encode($payload, ConfigJWT::key());

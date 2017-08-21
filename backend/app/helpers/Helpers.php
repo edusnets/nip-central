@@ -19,4 +19,15 @@ class Helpers {
 		$app->response()->header('Content-Type', 'application/json');
 		return $app->response()->body( json_encode($response) );
 	}
+
+	static function str_random($length = 12){
+		$strs = 'abcdefghijklmnopqrstuvxyzwABCDEFGHIJKLMNOPRSTUVXYZW1234567890';
+		$random = null;
+
+		for($i = 0; $i <= $length; $i++){
+			$random .= $strs{rand(0, strlen($strs))};
+		}
+
+		return $random;
+	}
 }

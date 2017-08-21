@@ -7,7 +7,7 @@ $app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), fu
 	$user 		= User::where('login', '=', $payload->login)->first();
 
 	$body = $app->request->getBody();
-    $data = json_decode($body, false);
+	$data = json_decode($body, false);
 
 	$date_start		= isset($data->date_start) ? $data->date_start : NULL;
 	$date_end		= isset($data->date_end) ? $data->date_end : NULL;
