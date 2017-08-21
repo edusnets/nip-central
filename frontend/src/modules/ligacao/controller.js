@@ -2,29 +2,39 @@
    angular.module('NipCentral')
    .controller('LigacaoCtrl', [
       '$scope',
+      '$rootScope',
       'LigacaoService',
       'searchFilter',
       function(
          $scope,
+         $rootScope,
          LigacaoService,
          searchFilter) {
-            
+            $scope.$on('$stateChangeStart', 
+            function(event, toState, toParams, fromState, fromParams){ 
+                $scope.state = toState.name;
+            })
         }
     ])
    .controller('LigacaoPesquisaCtrl', [
       '$scope',
+      '$rootScope',
       '$state',
       'LigacaoService',
       'searchFilter',
       'ProgressBarsStorage',
       function(
          $scope,
+         $rootScope,
          $state,
          LigacaoService,
          searchFilter,
-         ProgressBarsStorage) {
+         ProgressBarsStorage) {            
             
             var progressBarTop = ProgressBarsStorage.get('main');
+
+            $rootScope.state = 'app.ligacao';
+
             $scope.rows = [];
 
             function fancyTimeFormat(time)
@@ -200,14 +210,13 @@
    )
    .controller('LigacaoDetalhesCtrl', [
       '$scope',
-      'LigacaoService',
-      'searchFilter',
+      '$rootScope',
       '$stateParams',
       function(
          $scope,
-         LigacaoService,
-         searchFilter,
+         $rootScope,
          $stateParams) {
+            $rootScope.state = 'app.ligacao.detalhes';
             $scope.detalhes = $stateParams.detalhes;
         }
     ])
