@@ -12,7 +12,7 @@ $app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), fu
 	$date_start		= isset($data->date_start) ? $data->date_start : NULL;
 	$date_end		= isset($data->date_end) ? $data->date_end : NULL;
 
-	$ligacoes 		= Ligacao::select([
+	$selectFields = [
 		'calldate as date',
 		'duration as duracao',
 		'audio as audio',
@@ -29,7 +29,9 @@ $app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), fu
 		'realsentido as sentido',
 		'linkedid as id',
 		'motivofalha as motivo_falha'
-	]);
+	];
+
+	$ligacoes 		= Ligacao::select($selectFields);
 
 	if($user->admin == 0){
 		$entidades = null;
@@ -37,11 +39,11 @@ $app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), fu
 			$entidades[] = $entidade->numero_entidade;
 		}
 
-		$ligacoes->orWhereIn('src', $entidades)->orWhereIn('dst', $entidades);
+		$ligacoes->orWhereIn('realsrc', $entidades)->orWhereIn('realdst', $entidades);
 	}
 
 	if(!empty($date_start) and !empty($date_end)){
-		$ligacoes = $ligacoes->whereBetween('calldate', [$date_start . ' 00:00:00', $date_end . ' 23:59:59']);
+		$ligacoes = $ligacoes->whereBetween('calldate', [substr($date_start, 0, 10) . ' 00:00:00', substr($date_end, 0, 10) . ' 23:59:59']);
 	}
 
 	$ligacoes 		= $ligacoes->get();
@@ -49,4 +51,3 @@ $app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), fu
 
 	return Helpers::jsonResponse(200, 'Okey', $ligacoes->toArray());
 });
-
