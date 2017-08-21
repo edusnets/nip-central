@@ -133,9 +133,10 @@
             $scope.$watch('range', function(newRange){
                 if(newRange){
                     progressBarTop.start();
+                    console.log(newRange)
                     LigacaoService.get({
-                        date_start : moment(newRange.startDate),
-                        date_end : moment(newRange.endDate)
+                        date_start : newRange.startDate.startOf('day'),
+                        date_end : newRange.endDate.startOf('day')
                     }).then(function(response){                        
                         $scope.rows = searchFilter(response.data.data, $scope.search);
                         $scope.originalRows = response.data.data;
