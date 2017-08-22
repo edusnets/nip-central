@@ -100,6 +100,13 @@
                 key: 'status',
                 title: 'Status',
                 sortable: true,
+                onRender: function(val){
+                  if(val == 'ANSWERED'){
+                    return 'Atendida';
+                  }else{
+                    return 'Não atendida';
+                  }
+                }
             }, {
                 key: 'valor',
                 title: 'Valor',
@@ -140,6 +147,44 @@
             $scope.openDatepicker = function(e){
                 $(e.currentTarget).prev().focus();
                 e.preventDefault();
+            }
+
+            $scope.status = '';
+            $scope.statusBtn = {
+                todas: true,
+                at: false,
+                na: false
+            };
+
+            $scope.setStatus = function (newStatus) {
+                switch(newStatus){
+                    case 'AT':
+                        $scope.statusBtn = {
+                            todas: false,
+                            at: true,
+                            na: false
+                        };
+                        $scope.rows = searchFilter($scope.originalRows, 'ANSWERED');
+                        break;
+
+                    case 'NA':
+                        $scope.statusBtn = {
+                            todas: false,
+                            at: false,
+                            na: true
+                        };
+                        $scope.rows = searchFilter($scope.originalRows, 'NO ANSWER');
+                        break;
+
+                    default:
+                        $scope.statusBtn = {
+                            todas: true,
+                            at: false,
+                            na: false
+                        };
+                        $scope.rows = searchFilter($scope.originalRows, '');
+                        break;
+                }
             }
 
             $scope.range = {
