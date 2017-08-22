@@ -51,8 +51,29 @@ $app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), fu
 		}
 	}
 
-	$data = $ligacoes->orderBy('date','desc')->get()->toArray();
+	$ligacoes = $ligacoes->orderBy('date','desc')->get();
+	$return = [];
 
-	return Helpers::jsonResponse(200, 'Okey', $data);
+	foreach($ligacoes as $ligacao){
+		$return[] = [
+			'date' 				=> $ligacao->date,
+			'duracao' 			=> (int) $ligacao->duracao,
+			'audio' 			=> $ligacao->audio,
+			'faturado' 			=> (int) $ligacao->faturado,
+			'origem' 			=> $ligacao->origem,
+			'destino' 			=> $ligacao->destino,
+			'caller_id' 		=> $ligacao->caller_id,
+			'status' 			=> $ligacao->status,
+			'valor' 			=> (int) $ligacao->valor,
+			'conta' 			=> $ligacao->conta,
+			'transferido_por' 	=> $ligacao->transferido_por,
+			'tipo_transferencia' => $ligacao->tipo_transferencia,
+			'sentido' 			=> $ligacao->sentido,
+			'id' 				=> $ligacao->id,
+			'motivo_falha' 		=> $ligacao->motivo_falha,
+		];
+	}
+
+	return Helpers::jsonResponse(200, 'Okey', $return);
 });
 
