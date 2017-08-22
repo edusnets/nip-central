@@ -42,9 +42,13 @@ $app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), fu
 			$entidades[] = $entidade->numero_entidade;
 		}
 
-		$ligacoes->where(function($query) use ($entidades){
-			return $query->orWhereIn('realsrc', $entidades)->orWhereIn('realdst', $entidades);
-		});
+		if($entidades){
+			$ligacoes->where(function($query) use ($entidades){
+				return $query->orWhereIn('realsrc', $entidades)->orWhereIn('realdst', $entidades);
+			});
+		}else{
+			return Helpers::jsonResponse(200, 'Okey', []);
+		}
 	}
 
 	$data = $ligacoes->orderBy('date','desc')->get()->toArray();
