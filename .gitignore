@@ -2,7 +2,7 @@ frontend/src/modules/settings.js
 
 ## Angular ##
 # compiled output
-/dist
+frontend/dist
 /.tmp
 
 # dependencies
