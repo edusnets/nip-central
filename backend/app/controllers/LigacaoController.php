@@ -85,13 +85,7 @@ $app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), fu
 			case 'F':
 				$sentido = 'Forward';
 				break;
-
 		}
-
-
-		/*
-		Interno / Entrante / Sainte / Forwad
-		*/
 
 		$return[] = [
 			'date' 					=> $ligacao->date,

@@ -259,11 +259,13 @@
             rows = rows || [];
             return rows.filter(function(row){
                 var rowTest = angular.copy(row);
-                    rowTest['duracao'] = fancyTimeFormat(rowTest['duracao'])
-                    rowTest['faturado'] = fancyTimeFormat(rowTest['faturado'])
-                    rowTest['date'] = ptBrFormat(rowTest['date'])
+                    rowTest['duracao'] = fancyTimeFormat(rowTest['duracao']);
+                    rowTest['faturado'] = fancyTimeFormat(rowTest['faturado']);
+                    rowTest['date'] = ptBrFormat(rowTest['date']);
                 return Object.keys(rowTest).some(function(key){
-                    return new RegExp(str, 'gi').test(rowTest[key].toString());
+                    if(rowTest[key]){
+                        return new RegExp(str, 'gi').test(rowTest[key].toString());
+                    }
                 })
             });
         };
