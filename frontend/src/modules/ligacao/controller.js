@@ -148,7 +148,6 @@
             $scope.$watch('range', function(newRange){
                 if(newRange){
                     progressBarTop.start();
-                    console.log(newRange)
                     LigacaoService.get({
                         date_start : newRange.startDate.startOf('day'),
                         date_end : newRange.endDate.startOf('day')
