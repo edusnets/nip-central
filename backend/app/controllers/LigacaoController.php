@@ -101,7 +101,7 @@ $app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), fu
 			'origem' 				=> $ligacao->origem,
 			'destino' 				=> $ligacao->destino,
 			'caller_id' 			=> $ligacao->caller_id,
-			'status' 				=> $status,
+			'status' 				=> $ligacao->status,
 			'valor' 				=> $valor,
 			'conta' 				=> $ligacao->conta,
 			'transferido_por' 		=> $ligacao->transferido_por,

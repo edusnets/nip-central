@@ -12,9 +12,18 @@
 					<a href="#" class="input-group-addon" style="padding-left: 12px;" ng-click="openDatepicker($event)"><i class="fa fa-calendar"></i></a>
 				</div>
 			</div>
-			<div class="col-md-8">
+			<div class="col-md-4">
 				<div class="form-group">
 					<input type="text" ng-model="search" class="form-control" placeholder="Pesquise por qualquer campo">
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="form-group">
+					<div class="btn-group">
+						<label class="btn btn-default" ng-model="status" uib-btn-radio="''" ng-click="setStatus('')" ng-class="{ 'active' : statusBtn.todas }">Todas</label>
+						<label class="btn btn-default" ng-model="status" uib-btn-radio="'AT'" ng-click="setStatus('AT')" ng-class="{ 'active' : statusBtn.at }">Atendida</label>
+						<label class="btn btn-default" ng-model="status" uib-btn-radio="'NA'" ng-click="setStatus('NA')" ng-class="{ 'active' : statusBtn.na }">Não Atendida</label>
+					</div>
 				</div>
 			</div>
 			<br clear="both">
