@@ -1,7 +1,7 @@
 <div id="ligacao-pesq" class="row" ng-show="state == 'app.ligacao'">
 	<div class="col-md-12" style="margin: 20px 0">		
 		<div style="border: 2px solid #ddd;margin-bottom: -6px;background: #f9f9f9;padding: 15px 0 0;">
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<div class="input-group date">
 					<input date-range-picker 
 						class="form-control date-picker" 
@@ -12,17 +12,34 @@
 					<a href="#" class="input-group-addon" style="padding-left: 12px;" ng-click="openDatepicker($event)"><i class="fa fa-calendar"></i></a>
 				</div>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<div class="form-group">
 					<input type="text" ng-model="search" class="form-control" placeholder="Pesquise por qualquer campo">
 				</div>
 			</div>
-			<div class="col-md-4">
+			<div class="col-md-3">
 				<div class="form-group">
-					<div class="btn-group">
+					<div class="btn-group btn-group-justified">
 						<label class="btn btn-default" ng-model="status" uib-btn-radio="''" ng-click="setStatus('')" ng-class="{ 'active' : statusBtn.todas }">Todas</label>
 						<label class="btn btn-default" ng-model="status" uib-btn-radio="'AT'" ng-click="setStatus('AT')" ng-class="{ 'active' : statusBtn.at }">Atendida</label>
 						<label class="btn btn-default" ng-model="status" uib-btn-radio="'NA'" ng-click="setStatus('NA')" ng-class="{ 'active' : statusBtn.na }">Não Atendida</label>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="form-group">
+					<div class="btn-group">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Sentido <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a ng-click="setSentido('')" ng-class="{ 'btn-info' : statusBtnSentido.todas }">Todas</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a ng-click="setSentido('interno')" ng-class="{ 'btn-info' : statusBtnSentido.interno }">Interno</a></li>
+							<li><a ng-click="setSentido('entrante')" ng-class="{ 'btn-info' : statusBtnSentido.entrante }">Entrante</a></li>
+							<li><a ng-click="setSentido('sainte')" ng-class="{ 'btn-info' : statusBtnSentido.sainte }">Sainte</a></li>
+							<li><a ng-click="setSentido('forward')" ng-class="{ 'btn-info' : statusBtnSentido.forward }">Forward</a></li>
+						</ul>
 					</div>
 				</div>
 			</div>

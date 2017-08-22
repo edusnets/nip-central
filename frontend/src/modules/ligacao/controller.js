@@ -149,7 +149,6 @@
                 e.preventDefault();
             }
 
-            $scope.status = '';
             $scope.statusBtn = {
                 todas: true,
                 at: false,
@@ -181,6 +180,73 @@
                             todas: true,
                             at: false,
                             na: false
+                        };
+                        $scope.rows = searchFilter($scope.originalRows, '');
+                        break;
+                }
+            }
+
+            $scope.statusBtnSentido = {
+                todas: true,
+                entrante: false,
+                sainte: false,
+                interno: false,
+                forward: false
+            };
+
+            $scope.setSentido = function (sentido) {
+                switch(sentido){
+                    case 'entrante':
+                        $scope.statusBtnSentido = {
+                            todas: false,
+                            entrante: true,
+                            sainte: false,
+                            interno: false,
+                            forward: false
+                        };
+                        $scope.rows = searchFilter($scope.originalRows, 'Entrante');
+                        break;
+
+                    case 'sainte':
+                        $scope.statusBtnSentido = {
+                            todas: false,
+                            entrante: false,
+                            sainte: true,
+                            interno: false,
+                            forward: false
+                        };
+                        $scope.rows = searchFilter($scope.originalRows, 'Sainte');
+                        break;
+
+                    case 'interno':
+                        $scope.statusBtnSentido = {
+                            todas: false,
+                            entrante: false,
+                            sainte: false,
+                            interno: true,
+                            forward: false
+                        };
+                        $scope.rows = searchFilter($scope.originalRows, 'Interno');
+                        break;
+
+                    case 'forward':
+                        $scope.statusBtnSentido = {
+                            todas: false,
+                            entrante: false,
+                            sainte: false,
+                            interno: false,
+                            forward: true
+                        };
+                        $scope.rows = searchFilter($scope.originalRows, 'Forward');
+                        break;
+
+                    default:
+                        $scope.statusBtnSentido = {
+                            todas: true,
+                            entrante: false,
+                            sainte: false,
+                            interno: false,
+                            forward: false
                         };
                         $scope.rows = searchFilter($scope.originalRows, '');
                         break;
