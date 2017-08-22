@@ -99,7 +99,7 @@
             },{
                 key: 'status',
                 title: 'Status',
-                sortable: true
+                sortable: true,
             }, {
                 key: 'valor',
                 title: 'Valor',

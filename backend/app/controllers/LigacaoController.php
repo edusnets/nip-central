@@ -55,22 +55,60 @@ $app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), fu
 	$return = [];
 
 	foreach($ligacoes as $ligacao){
+		$valor 		= 'R$ ' . money_format('%.2n', $ligacao->valor);
+		$status 	= null;
+		$sentido 	= null;
+
+		switch($ligacao->status){
+			case 'ANSWERED':
+				$status = 'Atendida';
+				break;
+
+			case 'NO ANSWER':
+				$status = 'Não atendida';
+				break;
+		}
+
+		switch($ligacao->sentido){
+			case 'I':
+				$sentido = 'Interno';
+				break;
+
+			case 'E':
+				$sentido = 'Entrante';
+				break;
+
+			case 'S':
+				$sentido = 'Sainte';
+				break;
+
+			case 'F':
+				$sentido = 'Forward';
+				break;
+
+		}
+
+
+		/*
+		Interno / Entrante / Sainte / Forwad
+		*/
+
 		$return[] = [
-			'date' 				=> $ligacao->date,
-			'duracao' 			=> (int) $ligacao->duracao,
-			'audio' 			=> $ligacao->audio,
-			'faturado' 			=> (int) $ligacao->faturado,
-			'origem' 			=> $ligacao->origem,
-			'destino' 			=> $ligacao->destino,
-			'caller_id' 		=> $ligacao->caller_id,
-			'status' 			=> $ligacao->status,
-			'valor' 			=> (int) $ligacao->valor,
-			'conta' 			=> $ligacao->conta,
-			'transferido_por' 	=> $ligacao->transferido_por,
-			'tipo_transferencia' => $ligacao->tipo_transferencia,
-			'sentido' 			=> $ligacao->sentido,
-			'id' 				=> $ligacao->id,
-			'motivo_falha' 		=> $ligacao->motivo_falha,
+			'date' 					=> $ligacao->date,
+			'duracao' 				=> (int) $ligacao->duracao,
+			'audio' 				=> $ligacao->audio,
+			'faturado' 				=> (int) $ligacao->faturado,
+			'origem' 				=> $ligacao->origem,
+			'destino' 				=> $ligacao->destino,
+			'caller_id' 			=> $ligacao->caller_id,
+			'status' 				=> $status,
+			'valor' 				=> $valor,
+			'conta' 				=> $ligacao->conta,
+			'transferido_por' 		=> $ligacao->transferido_por,
+			'tipo_transferencia' 	=> $ligacao->tipo_transferencia,
+			'sentido' 				=> $sentido,
+			'id' 					=> $ligacao->id,
+			'motivo_falha' 			=> $ligacao->motivo_falha,
 		];
 	}
 
