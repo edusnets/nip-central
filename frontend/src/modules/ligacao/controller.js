@@ -56,12 +56,16 @@
                 return ret;
             }
 
+            function ptBrFormat(datetime){
+                return datetime.substr(8,2)+'/'+datetime.substr(5,2)+'/'+datetime.substr(0,4)+' '+datetime.substr(11,8)
+            }
+
             $scope.fields = [{
                 key: 'date',
                 title: 'Data',
                 sortable: true,
                 onRender: function(val){
-                    return val.substr(8,2)+'/'+val.substr(5,2)+'/'+val.substr(0,4)+' '+val.substr(11,8)
+                    return ptBrFormat(val)
                 }
                 // formatDate: 'dd/MM/yyyy HH:mm:ss'
             }, {
@@ -127,6 +131,7 @@
             }];
             
             $scope.showDetails = function (item) {
+                item.date = ptBrFormat(item.date)
                 $state.go('app.ligacao.detalhes', {detalhes:item})                
             }
 
@@ -143,7 +148,6 @@
             $scope.$watch('range', function(newRange){
                 if(newRange){
                     progressBarTop.start();
-                    console.log(newRange)
                     LigacaoService.get({
                         date_start : newRange.startDate.startOf('day'),
                         date_end : newRange.endDate.startOf('day')
