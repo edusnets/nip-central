@@ -4,7 +4,7 @@ use \Firebase\JWT\JWT;
 
 $app->post('/login', function() use ($app) {
 	$body = $app->request->getBody();
-    $data = json_decode($body, false);
+	$data = json_decode($body, false);
 
 	$username = $data->username;
 	$password = $data->password;
