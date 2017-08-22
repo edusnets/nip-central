@@ -131,7 +131,9 @@
             }];
             
             $scope.showDetails = function (item) {
-                item.datePtBr = ptBrFormat(item.date)
+                item.dateView = ptBrFormat(item.date)
+                item.duracaoView = fancyTimeFormat(item.duracao);
+                item.faturadoView = fancyTimeFormat(item.faturado);
                 $state.go('app.ligacao.detalhes', {detalhes:item})                
             }
 
