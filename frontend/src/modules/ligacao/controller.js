@@ -131,7 +131,7 @@
             }];
             
             $scope.showDetails = function (item) {
-                item.date = ptBrFormat(item.date)
+                // item.date = ptBrFormat(item.date)
                 $state.go('app.ligacao.detalhes', {detalhes:item})                
             }
 
