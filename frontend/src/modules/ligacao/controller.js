@@ -154,6 +154,8 @@
 					at: false,
 					na: false
 				};
+				
+				$scope.status = '';
 
 				$scope.setStatus = function (newStatus) {
 					switch(newStatus){
@@ -163,7 +165,7 @@
 								at: true,
 								na: false
 							};
-							$scope.rows = searchFilter($scope.originalRows, 'ANSWERED');
+							$scope.status = 'ANSWERED';
 							break;
 
 						case 'NA':
@@ -172,7 +174,7 @@
 								at: false,
 								na: true
 							};
-							$scope.rows = searchFilter($scope.originalRows, 'NO ANSWER');
+							$scope.status = 'NO ANSWER';
 							break;
 
 						default:
@@ -181,9 +183,11 @@
 								at: false,
 								na: false
 							};
-							$scope.rows = searchFilter($scope.originalRows, '');
+							$scope.status = '';
 							break;
 					}
+
+					$scope.rows = searchFilter($scope.originalRows, [$scope.sentido, $scope.status]);
 				}
 
 				$scope.statusBtnSentido = {
@@ -194,6 +198,8 @@
 					forward: false
 				};
 
+				$scope.sentido = '';
+				
 				$scope.setSentido = function (sentido) {
 					switch(sentido){
 						case 'entrante':
@@ -204,7 +210,7 @@
 								interno: false,
 								forward: false
 							};
-							$scope.rows = searchFilter($scope.originalRows, 'Entrante');
+							$scope.sentido = 'Entrante';
 							break;
 
 						case 'sainte':
@@ -215,7 +221,7 @@
 								interno: false,
 								forward: false
 							};
-							$scope.rows = searchFilter($scope.originalRows, 'Sainte');
+							$scope.sentido = 'Sainte';
 							break;
 
 						case 'interno':
@@ -226,7 +232,7 @@
 								interno: true,
 								forward: false
 							};
-							$scope.rows = searchFilter($scope.originalRows, 'Interno');
+							$scope.sentido = 'Interno';
 							break;
 
 						case 'forward':
@@ -237,7 +243,7 @@
 								interno: false,
 								forward: true
 							};
-							$scope.rows = searchFilter($scope.originalRows, 'Forward');
+							$scope.sentido = 'Forward';
 							break;
 
 						default:
@@ -248,9 +254,11 @@
 								interno: false,
 								forward: false
 							};
-							$scope.rows = searchFilter($scope.originalRows, '');
+							$scope.sentido = '';
 							break;
 					}
+					
+					$scope.rows = searchFilter($scope.originalRows, [$scope.sentido, $scope.status]);
 				}
 
 				$scope.range = {
@@ -366,18 +374,51 @@
 			return datetime.substr(8,2)+'/'+datetime.substr(5,2)+'/'+datetime.substr(0,4)+' '+datetime.substr(11,8)
 		}
 
+		Object.size = function(obj) {
+		    var size = 0, key;
+			for (key in obj) {
+				if (obj.hasOwnProperty(key)) size++;
+			}
+			return size;
+		};
+
 		return function(rows, str) {
 			rows = rows || [];
 			return rows.filter(function(row){
+				var rowArray = Object.keys(row).map(function (key) { return row[key]; });
 				var rowTest = angular.copy(row);
 					rowTest['duracao'] = fancyTimeFormat(rowTest['duracao']);
 					rowTest['faturado'] = fancyTimeFormat(rowTest['faturado']);
 					rowTest['date'] = ptBrFormat(rowTest['date']);
+
+					var fullRowStr = '';
+					for(var i = 0; i <= Object.size(rowArray); i++){
+						fullRowStr += rowArray[i] + '|';
+					}
+
+					if(str && Array.isArray(str)){
+						var find = 0;
+						var validParams = 0;
+
+						for(var i = 0; i < str.length; i++){
+							if(str[i] != ''){
+								validParams++;
+								if(new RegExp(str[i], 'gi').test(fullRowStr)){
+									find++;
+								}
+							}
+						}
+
+						if(find == validParams){
+							return true;
+						}
+					}
+
 				return Object.keys(rowTest).some(function(key){
 					if(rowTest[key]){
 						return new RegExp(str, 'gi').test(rowTest[key].toString());
 					}
-				})
+				});
 			});
 		};
 	})

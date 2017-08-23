@@ -35,10 +35,10 @@
 						<ul class="dropdown-menu">
 							<li><a ng-click="setSentido('')" ng-class="{ 'btn-info' : statusBtnSentido.todas }">Todas</a></li>
 							<li role="separator" class="divider"></li>
-							<li><a ng-click="setSentido('interno')" ng-class="{ 'btn-info' : statusBtnSentido.interno }">Interno</a></li>
-							<li><a ng-click="setSentido('entrante')" ng-class="{ 'btn-info' : statusBtnSentido.entrante }">Entrante</a></li>
-							<li><a ng-click="setSentido('sainte')" ng-class="{ 'btn-info' : statusBtnSentido.sainte }">Sainte</a></li>
-							<li><a ng-click="setSentido('forward')" ng-class="{ 'btn-info' : statusBtnSentido.forward }">Forward</a></li>
+							<li><a ng-click="setSentido('interno')" ng-model="status" ng-class="{ 'btn-info' : statusBtnSentido.interno }">Interno</a></li>
+							<li><a ng-click="setSentido('entrante')" ng-model="status" ng-class="{ 'btn-info' : statusBtnSentido.entrante }">Entrante</a></li>
+							<li><a ng-click="setSentido('sainte')" ng-model="status" ng-class="{ 'btn-info' : statusBtnSentido.sainte }">Sainte</a></li>
+							<li><a ng-click="setSentido('forward')" ng-model="sentido" ng-class="{ 'btn-info' : statusBtnSentido.forward }">Forward</a></li>
 						</ul>
 					</div>
 				</div>
