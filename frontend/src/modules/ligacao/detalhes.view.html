@@ -27,8 +27,8 @@
 				<tr>
 					<td><h5><strong>Áudio</strong></h5></td>
 					<td>
-						<audio style="width: 100%;" controls>
-							<source ng-src="monitor/{{detalhes.audio}}" type="audio/wav">						
+						<audio style="width: 100%;" controls ng-if="audioFile">
+							<source ng-src="{{ audioFile }}" type="audio/wav">						
 							Seu browser não suporta este player. Por favor, entre em contato com o nosso suporte.
 						</audio>
 					</td>

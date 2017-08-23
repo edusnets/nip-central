@@ -3,6 +3,7 @@
 ini_set('display_errors', 'on');
 
 # === constants
+define("BASEPATH", dirname(__FILE__));
 define("_APP", dirname(__FILE__) . '/app');
 
 # === slim

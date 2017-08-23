@@ -9,8 +9,13 @@
                 return $http.post(Settings.api + '/ligacao', filter);                
             }
 
+            function getAudio(id){                
+                return $http.get(Settings.api + '/ligacao/audio/' + id);                
+            }
+
             return {
-                get: get
+                get: get,
+                getAudio: getAudio
             }
         }
     ])

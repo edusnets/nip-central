@@ -1,18 +1,16 @@
 <?php
-use \Firebase\JWT\JWT;
 
 $app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), function() use ($app) {
-	$token 		= $app->request->headers->get('Authorization');
-	$payload 	= JWT::decode($token, ConfigJWT::key(), ConfigJWT::cypher());
-	$user 		= User::where('login', '=', $payload->login)->first();
+	$user 	= Helpers::user();
 
-	$body = $app->request->getBody();
-	$data = json_decode($body, false);
+	$body 	= $app->request->getBody();
+	$data 	= json_decode($body, false);
 
 	$date_start		= isset($data->date_start) ? $data->date_start : NULL;
 	$date_end		= isset($data->date_end) ? $data->date_end : NULL;
 
 	$selectFields = [
+		'id as id',
 		'calldate as date',
 		'duration as duracao',
 		'audio as audio',
@@ -26,7 +24,7 @@ $app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), fu
 		'realtransf as transferido_por',
 		'realtipotransf as tipo_transferencia',
 		'realsentido as sentido',
-		'linkedid as id',
+		'linkedid as ligacao_id',
 		'motivofalha as motivo_falha'
 	];
 
@@ -88,6 +86,7 @@ $app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), fu
 		}
 
 		$return[] = [
+			'id' 					=> $ligacao->id,
 			'date' 					=> $ligacao->date,
 			'duracao' 				=> (int) $ligacao->duracao,
 			'audio' 				=> $ligacao->audio,
@@ -101,7 +100,7 @@ $app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), fu
 			'transferido_por' 		=> $ligacao->transferido_por,
 			'tipo_transferencia' 	=> $ligacao->tipo_transferencia,
 			'sentido' 				=> $sentido,
-			'id' 					=> $ligacao->id,
+			'ligacao_id' 			=> $ligacao->ligacao_id,
 			'motivo_falha' 			=> $ligacao->motivo_falha,
 		];
 	}
@@ -109,3 +108,38 @@ $app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), fu
 	return Helpers::jsonResponse(200, 'Okey', $return);
 });
 
+$app->get('/ligacao/audio/:id', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), function($id) use ($app) {
+	$ligacao = Ligacao::where('id', '=', $id);
+
+	// verifico se o usuário tem permissao para ver este arquivo
+	$user = Helpers::user();
+
+	if($user->admin == 0){
+		$entidades = null;
+
+		foreach($user->entidade as $entidade){
+			$entidades[] = $entidade->numero_entidade;
+		}
+
+		$ligacao = $ligacao->where(function($query) use ($entidades){
+			return $query->orWhereIn('realsrc', $entidades)->orWhereIn('realdst', $entidades);
+		});
+	}
+
+	$ligacao = $ligacao->first();
+
+	if(empty($ligacao)){
+		return Helpers::jsonResponse(401, 'Operação não permitida', ['Operação não permitida']);
+	}
+	// verifico se o usuário tem permissao para ver este arquivo
+
+	$audioPath 	= BASEPATH . '/../monitor/';
+	$audioFile 	= $audioPath . $ligacao->audio;
+	$file 		= file_get_contents($audioFile);
+
+	//return base64_encode($file);
+	return Helpers::jsonResponse(200, 'Okey', [
+		'audio' => 'data:audio/x-wav;base64,' . base64_encode($file)
+	]);
+
+});

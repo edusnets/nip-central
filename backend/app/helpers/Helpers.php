@@ -1,5 +1,6 @@
 <?php
 use Slim\Slim;
+use \Firebase\JWT\JWT;
 
 class Helpers {
 	static function jsonResponse( $status = 200, $message = '', $data = array() ) {
@@ -29,5 +30,14 @@ class Helpers {
 		}
 
 		return $random;
+	}
+
+	static function user(){
+		$app 	 	= $app = new \Slim\Slim;
+		$token 		= $app->request->headers->get('Authorization');
+		$payload 	= JWT::decode($token, ConfigJWT::key(), ConfigJWT::cypher());
+		$user 		= User::where('login', '=', $payload->login)->first();
+
+		return $user;
 	}
 }

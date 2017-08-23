@@ -17,12 +17,12 @@
 		}
 	])
 	.controller('LigacaoPesquisaCtrl', [
-	'$scope',
-	'$rootScope',
-	'$state',
-	'LigacaoService',
-	'searchFilter',
-	'ProgressBarsStorage',
+		'$scope',
+		'$rootScope',
+		'$state',
+		'LigacaoService',
+		'searchFilter',
+		'ProgressBarsStorage',
 	  	function(
 			$scope,
 			$rootScope,
@@ -131,7 +131,7 @@
 					sortable: true,
 					hide: 'hidden-sm hidden-xs'
 				}, {
-					key: 'id',
+					key: 'ligacao_id',
 					title: 'Id',
 					sortable: true,
 					hide: 'hidden-sm hidden-xs'
@@ -341,12 +341,25 @@
 	  '$scope',
 	  '$rootScope',
 	  '$stateParams',
+	  'LigacaoService',
 	  function(
 		 $scope,
 		 $rootScope,
-		 $stateParams) {
-			$rootScope.state = 'app.ligacao.detalhes';
-			$scope.detalhes = $stateParams.detalhes;
+		 $stateParams,
+		 LigacaoService) {
+	  		$scope.audioFile = false;
+
+	  		LigacaoService.getAudio($stateParams.detalhes.id).then(
+				function (result) {
+					$scope.audioFile = result.data.data.audio;
+				},
+				function (result) {
+					console.log('Deu erro');
+				}
+			);
+
+			$rootScope.state 	= 'app.ligacao.detalhes';
+			$scope.detalhes 	= $stateParams.detalhes;
 		}
 	])
    .filter('search', function() {

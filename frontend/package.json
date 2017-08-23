@@ -40,5 +40,8 @@
     "npm-delay": "^1.0.4",
     "npm-run-all": "^4.0.2",
     "protractor": "^5.1.1"
+  },
+  "dependencies": {
+    "del": "^3.0.0"
   }
 }
