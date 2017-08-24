@@ -1,44 +1,47 @@
-(function(){
-   angular.module('NipCentral')
-   .controller('LigacaoCtrl', [
-	  '$scope',
-	  '$rootScope',
-	  'LigacaoService',
-	  'searchFilter',
-	  function(
-		 $scope,
-		 $rootScope,
-		 LigacaoService,
-		 searchFilter) {
-			$scope.$on('$stateChangeStart', 
-			function(event, toState, toParams, fromState, fromParams){ 
-				$scope.state = toState.name;
-			})
-		}
-	])
-	.controller('LigacaoPesquisaCtrl', [
-		'$scope',
-		'$rootScope',
-		'$state',
-		'LigacaoService',
-		'searchFilter',
-		'ProgressBarsStorage',
-	  	function(
-			$scope,
-			$rootScope,
-			$state,
-			LigacaoService,
-			searchFilter,
-			ProgressBarsStorage) {            
-				
+(function () {
+	angular.module('NipCentral')
+		.controller('LigacaoCtrl', [
+			'$scope',
+			'$rootScope',
+			'LigacaoService',
+			'searchFilter',
+			function (
+				$scope,
+				$rootScope,
+				LigacaoService,
+				searchFilter) {
+				$scope.$on('$stateChangeStart',
+					function (event, toState, toParams, fromState, fromParams) {
+						$scope.state = toState.name;
+					})
+			}
+		])
+		.controller('LigacaoPesquisaCtrl', [
+			'$scope',
+			'$rootScope',
+			'$state',
+			'LigacaoService',
+			'searchFilter',
+			'ProgressBarsStorage',
+			'localStorageService',
+			'Settings',
+			function (
+				$scope,
+				$rootScope,
+				$state,
+				LigacaoService,
+				searchFilter,
+				ProgressBarsStorage,
+				localStorageService,
+				Settings) {
+
 				var progressBarTop = ProgressBarsStorage.get('main');
 
 				$rootScope.state = 'app.ligacao';
 
 				$scope.rows = [];
 
-				function fancyTimeFormat(time)
-				{
+				function fancyTimeFormat(time) {
 					// Hours, minutes and seconds
 					var hrs = ~~(time / 3600);
 					var mins = ~~((time % 3600) / 60);
@@ -56,15 +59,15 @@
 					return ret;
 				}
 
-				function ptBrFormat(datetime){
-					return datetime.substr(8,2)+'/'+datetime.substr(5,2)+'/'+datetime.substr(0,4)+' '+datetime.substr(11,8)
+				function ptBrFormat(datetime) {
+					return datetime.substr(8, 2) + '/' + datetime.substr(5, 2) + '/' + datetime.substr(0, 4) + ' ' + datetime.substr(11, 8)
 				}
 
 				$scope.fields = [{
 					key: 'date',
 					title: 'Data',
 					sortable: true,
-					onRender: function(val){
+					onRender: function (val) {
 						return ptBrFormat(val)
 					}
 					// formatDate: 'dd/MM/yyyy HH:mm:ss'
@@ -85,27 +88,27 @@
 					title: 'Duração',
 					sortable: true,
 					hide: 'hidden-sm hidden-xs',
-					onRender: function(val){
-					  return fancyTimeFormat(val);
+					onRender: function (val) {
+						return fancyTimeFormat(val);
 					}
 				}, {
 					key: 'faturado',
 					title: 'Tarifado',
 					sortable: true,
 					hide: 'hidden-sm hidden-xs',
-					onRender: function(val){
-					  return fancyTimeFormat(val);
+					onRender: function (val) {
+						return fancyTimeFormat(val);
 					}
-				},{
+				}, {
 					key: 'status',
 					title: 'Status',
 					sortable: true,
-					onRender: function(val){
-					  if(val == 'ANSWERED'){
-						return 'Atendida';
-					  }else{
-						return 'Não atendida';
-					  }
+					onRender: function (val) {
+						if (val == 'ANSWERED') {
+							return 'Atendida';
+						} else {
+							return 'Não atendida';
+						}
 					}
 				}, {
 					key: 'valor',
@@ -136,15 +139,19 @@
 					sortable: true,
 					hide: 'hidden-sm hidden-xs'
 				}];
-				
+
 				$scope.showDetails = function (item) {
 					item.dateView = ptBrFormat(item.date)
 					item.duracaoView = fancyTimeFormat(item.duracao);
 					item.faturadoView = fancyTimeFormat(item.faturado);
-					$state.go('app.ligacao.detalhes', {detalhes:item})                
+					var swap = localStorageService.get(Settings.swap);
+					if (!swap) swap = {}
+					swap[item.id] = item
+					localStorageService.set(Settings.swap, swap)
+					$state.go('app.ligacao.detalhes', { detalhes: item })
 				}
 
-				$scope.openDatepicker = function(e){
+				$scope.openDatepicker = function (e) {
 					$(e.currentTarget).prev().focus();
 					e.preventDefault();
 				}
@@ -160,7 +167,7 @@
 				};
 
 				$scope.setStatus = function (newStatus) {
-					switch(newStatus){
+					switch (newStatus) {
 						case 'AT':
 							$scope.statusBtn = {
 								todas: false,
@@ -202,7 +209,7 @@
 
 				$scope.setSentido = function (sentido) {
 					//console.log($scope.searchString);
-					switch(sentido){
+					switch (sentido) {
 						case 'entrante':
 							$scope.statusBtnSentido = {
 								todas: false,
@@ -258,7 +265,7 @@
 							$scope.sentido = '';
 							break;
 					}
-					
+
 					$scope.rows = searchFilter($scope.originalRows, [$scope.sentido, $scope.status, $scope.searchString]);
 				}
 
@@ -267,22 +274,22 @@
 					endDate: moment()
 				}
 
-				$scope.$watch('range', function(newRange){
-					if(newRange){
+				$scope.$watch('range', function (newRange) {
+					if (newRange) {
 						progressBarTop.start();
 						LigacaoService.get({
-							date_start : newRange.startDate.startOf('day'),
-							date_end : newRange.endDate.startOf('day')
-						}).then(function(response){                        
+							date_start: newRange.startDate.startOf('day'),
+							date_end: newRange.endDate.startOf('day')
+						}).then(function (response) {
 							$scope.rows = searchFilter(response.data.data, $scope.search);
 							$scope.originalRows = response.data.data;
-						}).finally(function(){
+						}).finally(function () {
 							progressBarTop.done();
 						});
-					}                
+					}
 				});
 
-				$scope.$watch('search', function(newStr){
+				$scope.$watch('search', function (newStr) {
 					$scope.searchString = newStr;
 					$scope.rows = searchFilter($scope.originalRows, [newStr, $scope.status, $scope.sentido]);
 				});
@@ -321,8 +328,8 @@
 							'Dezembro'
 						]
 					},
-					dateLimit: { 
-						"days":31 
+					dateLimit: {
+						"days": 31
 					},
 					ranges: {
 						'Hoje': [
@@ -338,104 +345,102 @@
 				}
 			}
 		]
-	)
-   .controller('LigacaoDetalhesCtrl', [
-	  '$scope',
-	  '$rootScope',
-	  '$stateParams',
-	  'LigacaoService',
-	  function(
-		 $scope,
-		 $rootScope,
-		 $stateParams,
-		 LigacaoService) {
-	  		$scope.audioFile = false;
+		)
+		.controller('LigacaoDetalhesCtrl', [
+			'$scope',
+			'$rootScope',
+			'$stateParams',
+			'LigacaoService',
+			function (
+				$scope,
+				$rootScope,
+				$stateParams,
+				LigacaoService) {
+				$scope.audioFile = false;
 
-	  		LigacaoService.getAudio($stateParams.detalhes.id).then(
-				function (result) {
-					$scope.audioFile = result.data.data.audio;
-				},
-				function (result) {
-					console.log('Deu erro');
+				LigacaoService.getAudio($stateParams.detalhes.id).then(
+					function (result) {
+						$scope.audioFile = result.data.data.audio;
+					},
+					function (result) {
+						// console.log('Deu erro');
+					}
+				);
+
+				$rootScope.state = 'app.ligacao.detalhes';
+				$scope.detalhes = $stateParams.detalhes;
+			}
+		])
+		.filter('search', function () {
+
+			function fancyTimeFormat(time) {
+				// Hours, minutes and seconds
+				var hrs = ~~(time / 3600);
+				var mins = ~~((time % 3600) / 60);
+				var secs = time % 60;
+
+				// Output like "1:01" or "4:03:59" or "123:03:59"
+				var ret = "";
+
+				if (hrs > 0) {
+					ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
 				}
-			);
 
-			$rootScope.state 	= 'app.ligacao.detalhes';
-			$scope.detalhes 	= $stateParams.detalhes;
-		}
-	])
-   .filter('search', function() {
-
-		function fancyTimeFormat(time)
-		{
-			// Hours, minutes and seconds
-			var hrs = ~~(time / 3600);
-			var mins = ~~((time % 3600) / 60);
-			var secs = time % 60;
-
-			// Output like "1:01" or "4:03:59" or "123:03:59"
-			var ret = "";
-
-			if (hrs > 0) {
-				ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
+				ret += "" + mins + ":" + (secs < 10 ? "0" : "");
+				ret += "" + secs;
+				return ret;
 			}
 
-			ret += "" + mins + ":" + (secs < 10 ? "0" : "");
-			ret += "" + secs;
-			return ret;
-		}
-
-		function ptBrFormat(datetime){
-			return datetime.substr(8,2)+'/'+datetime.substr(5,2)+'/'+datetime.substr(0,4)+' '+datetime.substr(11,8)
-		}
-
-		Object.size = function(obj) {
-		    var size = 0, key;
-			for (key in obj) {
-				if (obj.hasOwnProperty(key)) size++;
+			function ptBrFormat(datetime) {
+				return datetime.substr(8, 2) + '/' + datetime.substr(5, 2) + '/' + datetime.substr(0, 4) + ' ' + datetime.substr(11, 8)
 			}
-			return size;
-		};
 
-		return function(rows, str) {
-			console.log(str);
-			rows = rows || [];
-			return rows.filter(function(row){
-				var rowArray = Object.keys(row).map(function (key) { return row[key]; });
-				var rowTest = angular.copy(row);
-					rowTest['duracao'] 	= fancyTimeFormat(rowTest['duracao']);
+			Object.size = function (obj) {
+				var size = 0, key;
+				for (key in obj) {
+					if (obj.hasOwnProperty(key)) size++;
+				}
+				return size;
+			};
+
+			return function (rows, str) {
+				rows = rows || [];
+				return rows.filter(function (row) {
+					var rowArray = Object.keys(row).map(function (key) { return row[key]; });
+					var rowTest = angular.copy(row);
+					rowTest['duracao'] = fancyTimeFormat(rowTest['duracao']);
 					rowTest['faturado'] = fancyTimeFormat(rowTest['faturado']);
-					rowTest['date'] 	= ptBrFormat(rowTest['date']);
+					rowTest['date'] = ptBrFormat(rowTest['date']);
 
 					var fullRowStr = '';
-					for(element in rowTest){
+					for (element in rowTest) {
 						fullRowStr += rowTest[element] + '|';
 					}
 
-					if(str && Array.isArray(str)){
+					if (str && Array.isArray(str)) {
 						var find = 0;
 						var validParams = 0;
 
-						for(var i = 0; i < str.length; i++){
-							if(str[i] != '' && str[i] != undefined){
+						for (var i = 0; i < str.length; i++) {
+							if (str[i] != '' && str[i] != undefined) {
 								validParams++;
-								if(new RegExp(str[i], 'gi').test(fullRowStr)){
+								if (new RegExp(str[i], 'gi').test(fullRowStr)) {
 									find++;
 								}
 							}
 						}
 
-						if(find == validParams){
+						if (find == validParams) {
 							return true;
 						}
 					}
 
-				return Object.keys(rowTest).some(function(key){
-					if(rowTest[key]){
-						return new RegExp(str, 'gi').test(rowTest[key].toString());
-					}
+					return Object.keys(rowTest).some(function (key) {
+						if (rowTest[key]) {
+							return new RegExp(str, 'gi').test(rowTest[key].toString());
+						}
+					});
 				});
-			});
-		};
-	})
+			};
+		})
 })();
