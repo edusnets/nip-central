@@ -37,6 +37,7 @@
 
 				var progressBarTop = ProgressBarsStorage.get('main');
 
+
 				$rootScope.state = 'app.ligacao';
 
 				$scope.rows = [];
@@ -208,7 +209,6 @@
 				};
 
 				$scope.setSentido = function (sentido) {
-					//console.log($scope.searchString);
 					switch (sentido) {
 						case 'entrante':
 							$scope.statusBtnSentido = {
@@ -413,8 +413,10 @@
 					rowTest['date'] = ptBrFormat(rowTest['date']);
 
 					var fullRowStr = '';
-					for (element in rowTest) {
-						fullRowStr += rowTest[element] + '|';
+					var elementItem = '';
+
+					for (elementItem in rowTest) {
+						fullRowStr += rowTest[elementItem] + '|';
 					}
 
 					if (str && Array.isArray(str)) {
