@@ -46,7 +46,7 @@
             }
          })
          .state('app.ligacao.detalhes', {
-            url: '/detalhes',
+            url: '/detalhes/:id',
             views: {
                'details@app.ligacao': {
                   controller : 'LigacaoDetalhesCtrl',
