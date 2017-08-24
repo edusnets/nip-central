@@ -19,6 +19,10 @@ $app->post('/login', function() use ($app) {
 		return Helpers::jsonResponse(401, 'Ocorreram erros de validação', ['Usuário ou senha inválidos']);
 	}
 
+	if($user->ac_gravacoes == 0 AND $user->admin == 0){
+		return Helpers::jsonResponse(401, 'Acesso negado', ['Você não tem autorização para acessar essa área.']);
+	}
+
 	$payload = [
 		'id' 		=> $user->id,
 		'login' 	=> $user->login,

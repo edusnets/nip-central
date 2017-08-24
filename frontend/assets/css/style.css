@@ -40,22 +40,25 @@ code {
 
 .form-signin {
 	width: 330px;
-    padding: 25px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    position: absolute;
-    background: #292929;
-    border-radius: 10px;
-    box-shadow: 0 0 50px -10px #333;
+	padding: 25px;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	position: absolute;
+	background: #292929;
+	border-radius: 10px;
+	box-shadow: 0 0 50px -10px #333;
 }
+
 .form-signin .form-signin-heading,
 .form-signin .checkbox {
 	margin-bottom: 10px;
 }
+
 .form-signin .checkbox {
 	font-weight: normal;
 }
+
 .form-signin .form-control {
 	position: relative;
 	height: auto;
@@ -65,14 +68,17 @@ code {
 	padding: 10px;
 	font-size: 16px;
 }
+
 .form-signin .form-control:focus {
 	z-index: 2;
 }
+
 .form-signin input[type="email"] {
 	margin-bottom: -1px;
 	border-bottom-right-radius: 0;
 	border-bottom-left-radius: 0;
 }
+
 .form-signin input[type="password"] {
 	margin-bottom: 10px;
 	border-top-left-radius: 0;
@@ -80,12 +86,13 @@ code {
 }
 
 #main-content{	
-    margin-top: 51px;
+	margin-top: 51px;
 }
 
 #ligacao-detalhes table{
 	width: 100%;box-shadow: 0 0 25px -12px #333;
 }
+
 #ligacao-detalhes table tr td{
 	padding: 4px 15px;
 	margin: 0 0;
@@ -106,4 +113,8 @@ code {
 
 #ligacao-detalhes table tr:nth-child(odd){
 	background: #f0f0f0;
+}
+
+.lastFormGroup{
+	margin-left: 10px;
 }

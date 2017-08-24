@@ -17,29 +17,21 @@
 					<input type="text" ng-model="search" class="form-control" placeholder="Pesquise por qualquer campo">
 				</div>
 			</div>
-			<div class="col-md-3">
-				<div class="form-group">
-					<div class="btn-group btn-group-justified">
-						<label class="btn btn-default" ng-model="status" uib-btn-radio="''" ng-click="setStatus('')" ng-class="{ 'active' : statusBtn.todas }">Todas</label>
-						<label class="btn btn-default" ng-model="status" uib-btn-radio="'AT'" ng-click="setStatus('AT')" ng-class="{ 'active' : statusBtn.at }">Atendida</label>
-						<label class="btn btn-default" ng-model="status" uib-btn-radio="'NA'" ng-click="setStatus('NA')" ng-class="{ 'active' : statusBtn.na }">Não Atendida</label>
+			<div class="col-md-6">
+				<div class="form-group pull-left">
+					<div class="btn-group btn-group-sm">
+						<label class="btn btn-default" ng-model="status" uib-btn-radio="''" ng-click="setStatus('')" ng-class="{ 'btn-info' : statusBtn.todas }">Todas</label>
+						<label class="btn btn-default" ng-model="status" uib-btn-radio="'AT'" ng-click="setStatus('AT')" ng-class="{ 'btn-info' : statusBtn.at }">Atendida</label>
+						<label class="btn btn-default" ng-model="status" uib-btn-radio="'NA'" ng-click="setStatus('NA')" ng-class="{ 'btn-info' : statusBtn.na }">Não Atendida</label>
 					</div>
 				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="form-group">
-					<div class="btn-group">
-						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Sentido <span class="caret"></span>
-						</button>
-						<ul class="dropdown-menu">
-							<li><a ng-click="setSentido('')" ng-class="{ 'btn-info' : statusBtnSentido.todas }">Todas</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a ng-click="setSentido('interno')" ng-model="status" ng-class="{ 'btn-info' : statusBtnSentido.interno }">Interno</a></li>
-							<li><a ng-click="setSentido('entrante')" ng-model="status" ng-class="{ 'btn-info' : statusBtnSentido.entrante }">Entrante</a></li>
-							<li><a ng-click="setSentido('sainte')" ng-model="status" ng-class="{ 'btn-info' : statusBtnSentido.sainte }">Sainte</a></li>
-							<li><a ng-click="setSentido('forward')" ng-model="sentido" ng-class="{ 'btn-info' : statusBtnSentido.forward }">Forward</a></li>
-						</ul>
+				<div class="form-group pull-left lastFormGroup">
+					<div class="btn-group btn-group-sm">
+						<label class="btn btn-default" ng-model="sentido" uib-btn-radio="''" ng-click="setSentido('')" ng-class="{ 'btn-info' : statusBtnSentido.todas }">Todas</label>
+						<label class="btn btn-default" ng-model="sentido" uib-btn-radio="''" ng-click="setSentido('interno')" ng-class="{ 'btn-info' : statusBtnSentido.interno }">Interno</label>
+						<label class="btn btn-default" ng-model="sentido" uib-btn-radio="''" ng-click="setSentido('entrante')" ng-class="{ 'btn-info' : statusBtnSentido.entrante }">Entrante</label>
+						<label class="btn btn-default" ng-model="sentido" uib-btn-radio="''" ng-click="setSentido('sainte')" ng-class="{ 'btn-info' : statusBtnSentido.sainte }">Sainte</label>
+						<label class="btn btn-default" ng-model="sentido" uib-btn-radio="''" ng-click="setSentido('forward')" ng-class="{ 'btn-info' : statusBtnSentido.forward }">Forward</label>
 					</div>
 				</div>
 			</div>

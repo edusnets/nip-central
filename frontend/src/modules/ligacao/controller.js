@@ -149,13 +149,15 @@
 					e.preventDefault();
 				}
 
+				$scope.sentido = '';
+				$scope.status = '';
+				$scope.searchString = '';
+
 				$scope.statusBtn = {
 					todas: true,
 					at: false,
 					na: false
 				};
-				
-				$scope.status = '';
 
 				$scope.setStatus = function (newStatus) {
 					switch(newStatus){
@@ -187,7 +189,7 @@
 							break;
 					}
 
-					$scope.rows = searchFilter($scope.originalRows, [$scope.sentido, $scope.status]);
+					$scope.rows = searchFilter($scope.originalRows, [$scope.sentido, $scope.status, $scope.searchString]);
 				}
 
 				$scope.statusBtnSentido = {
@@ -198,9 +200,8 @@
 					forward: false
 				};
 
-				$scope.sentido = '';
-				
 				$scope.setSentido = function (sentido) {
+					//console.log($scope.searchString);
 					switch(sentido){
 						case 'entrante':
 							$scope.statusBtnSentido = {
@@ -258,7 +259,7 @@
 							break;
 					}
 					
-					$scope.rows = searchFilter($scope.originalRows, [$scope.sentido, $scope.status]);
+					$scope.rows = searchFilter($scope.originalRows, [$scope.sentido, $scope.status, $scope.searchString]);
 				}
 
 				$scope.range = {
@@ -282,7 +283,8 @@
 				});
 
 				$scope.$watch('search', function(newStr){
-					$scope.rows = searchFilter($scope.originalRows, newStr);
+					$scope.searchString = newStr;
+					$scope.rows = searchFilter($scope.originalRows, [newStr, $scope.status, $scope.sentido]);
 				});
 
 				$scope.options = {
@@ -396,17 +398,18 @@
 		};
 
 		return function(rows, str) {
+			console.log(str);
 			rows = rows || [];
 			return rows.filter(function(row){
 				var rowArray = Object.keys(row).map(function (key) { return row[key]; });
 				var rowTest = angular.copy(row);
-					rowTest['duracao'] = fancyTimeFormat(rowTest['duracao']);
+					rowTest['duracao'] 	= fancyTimeFormat(rowTest['duracao']);
 					rowTest['faturado'] = fancyTimeFormat(rowTest['faturado']);
-					rowTest['date'] = ptBrFormat(rowTest['date']);
+					rowTest['date'] 	= ptBrFormat(rowTest['date']);
 
 					var fullRowStr = '';
-					for(var i = 0; i <= Object.size(rowArray); i++){
-						fullRowStr += rowArray[i] + '|';
+					for(element in rowTest){
+						fullRowStr += rowTest[element] + '|';
 					}
 
 					if(str && Array.isArray(str)){
@@ -414,7 +417,7 @@
 						var validParams = 0;
 
 						for(var i = 0; i < str.length; i++){
-							if(str[i] != ''){
+							if(str[i] != '' && str[i] != undefined){
 								validParams++;
 								if(new RegExp(str[i], 'gi').test(fullRowStr)){
 									find++;
