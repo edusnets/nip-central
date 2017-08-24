@@ -40,4 +40,104 @@ class Helpers {
 
 		return $user;
 	}
+
+	static function canUserSeeThisCall($ligacao_id){
+		$selectFields = [
+			'id as id',
+			'calldate as date',
+			'duration as duracao',
+			'audio as audio',
+			'billsec as faturado',
+			'realsrc as origem',
+			'realdst as destino',
+			'realclid as caller_id',
+			'disposition as status',
+			'valor as valor',
+			'accountcode as conta',
+			'realtransf as transferido_por',
+			'realtipotransf as tipo_transferencia',
+			'realsentido as sentido',
+			'linkedid as ligacao_id',
+			'motivofalha as motivo_falha'
+		];
+
+		$ligacao = Ligacao::select($selectFields)->where('id', '=', $ligacao_id);
+		
+		$user = Helpers::user();
+
+		if($user->admin == 0){
+			$entidades = null;
+
+			foreach($user->entidade as $entidade){
+				$entidades[] = $entidade->numero_entidade;
+			}
+
+			$ligacao = $ligacao->where(function($query) use ($entidades){
+				return $query->orWhereIn('realsrc', $entidades)->orWhereIn('realdst', $entidades);
+			});
+		}
+
+		$ligacao = $ligacao->first();
+
+		if(empty($ligacao)){
+			return false;
+		}
+
+		return $ligacao;
+	}
+
+	static function createLigacaoObject($ligacao){
+		$valor 		= 'R$ ' . money_format('%.2n', $ligacao->valor);
+		$status 	= null;
+		$sentido 	= null;
+
+		switch($ligacao->status){
+			case 'ANSWERED':
+				$status = 'Atendida';
+				break;
+
+			case 'NO ANSWER':
+				$status = 'Não atendida';
+				break;
+		}
+
+		switch($ligacao->sentido){
+			case 'I':
+				$sentido = 'Interno';
+				break;
+
+			case 'E':
+				$sentido = 'Entrante';
+				break;
+
+			case 'S':
+				$sentido = 'Sainte';
+				break;
+
+			case 'F':
+				$sentido = 'Forward';
+				break;
+		}
+
+		$return = [
+			'id' 					=> $ligacao->id,
+			'date' 					=> $ligacao->date,
+			'duracao' 				=> (int) $ligacao->duracao,
+			'audio' 				=> $ligacao->audio,
+			'faturado' 				=> (int) $ligacao->faturado,
+			'origem' 				=> $ligacao->origem,
+			'destino' 				=> $ligacao->destino,
+			'caller_id' 			=> $ligacao->caller_id,
+			'status' 				=> $ligacao->status,
+			'valor' 				=> $valor,
+			'conta' 				=> $ligacao->conta,
+			'transferido_por' 		=> $ligacao->transferido_por,
+			'tipo_transferencia' 	=> $ligacao->tipo_transferencia,
+			'sentido' 				=> $sentido,
+			'ligacao_id' 			=> $ligacao->ligacao_id,
+			'motivo_falha' 			=> $ligacao->motivo_falha,
+		];
+
+		return $return;
+	}
 }
