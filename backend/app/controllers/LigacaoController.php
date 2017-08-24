@@ -57,9 +57,7 @@ $app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), fu
 		$status 	= null;
 		$sentido 	= null;
 
-		$testStatus = ['ANSWERED', 'NO ANSWER'];
-		//switch($ligacao->status){
-		switch($testStatus[rand(0,1)]){
+		switch($ligacao->status){
 			case 'ANSWERED':
 				$status = 'Atendida';
 				break;
@@ -69,9 +67,7 @@ $app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), fu
 				break;
 		}
 
-		$testSentido = ['I','E','S','F'];
-		switch($testSentido[rand(0, 3)]){
-		//switch($ligacao->sentido){
+		switch($ligacao->sentido){
 			case 'I':
 				$sentido = 'Interno';
 				break;
@@ -98,8 +94,7 @@ $app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), fu
 			'origem' 				=> $ligacao->origem,
 			'destino' 				=> $ligacao->destino,
 			'caller_id' 			=> $ligacao->caller_id,
-			//'status' 				=> $ligacao->status,
-			'status' 				=> $testStatus[rand(0,1)],
+			'status' 				=> $ligacao->status,
 			'valor' 				=> $valor,
 			'conta' 				=> $ligacao->conta,
 			'transferido_por' 		=> $ligacao->transferido_por,
