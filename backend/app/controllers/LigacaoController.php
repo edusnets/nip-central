@@ -46,8 +46,6 @@ $app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), fu
 			if($entidade->origemdestino == 1){
 				$origemdestino[] = $entidade->filtro;
 			}
-
-			//$entidades[] = $entidade->filtro;
 		}
 
 		if($contas or $origemdestino){

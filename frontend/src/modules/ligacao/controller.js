@@ -82,7 +82,7 @@
           sortable: true
         }, {
           key: 'duracao',
-          title: 'Duração',
+          title: 'DuraÃ§Ã£o',
           sortable: true,
           hide: 'hidden-sm hidden-xs',
           onRender: function (val) {
@@ -104,7 +104,7 @@
             if (val == 'ANSWERED') {
               return 'Atendida';
             } else {
-              return 'Não atendida';
+              return 'NÃ£o atendida';
             }
           }
         }, {
@@ -292,9 +292,9 @@
             separator: ' - ',
             applyLabel: "Confirmar",
             fromLabel: "De",
-            toLabel: "Até",
+            toLabel: "AtÃ©",
             cancelLabel: 'Cancelar',
-            customRangeLabel: 'Período Customizado',
+            customRangeLabel: 'PerÃ­odo Customizado',
             daysOfWeek: [
               'Dom',
               'Seg',
@@ -302,13 +302,13 @@
               'Qua',
               'Qui',
               'Sex',
-              'Sáb'
+              'SÃ¡b'
             ],
             firstDay: 1,
             monthNames: [
               'Janeiro',
               'Fevereiro',
-              'Março',
+              'MarÃ§o',
               'Abril',
               'Maio',
               'Junho',
@@ -327,10 +327,10 @@
             'Hoje': [
               moment().subtract(0, 'days'), moment()
             ],
-            'Últimos 7 dias': [
+            'Ãšltimos 7 dias': [
               moment().subtract(6, 'days'), moment()
             ],
-            'Últimos 30 dias': [
+            'Ãšltimos 30 dias': [
               moment().subtract(29, 'days'), moment()
             ]
           }
