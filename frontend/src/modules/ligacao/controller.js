@@ -139,6 +139,7 @@
 				}];
 				
 				$scope.showDetails = function (item) {
+					console.log(item);
 					item.dateView = ptBrFormat(item.date)
 					item.duracaoView = fancyTimeFormat(item.duracao);
 					item.faturadoView = fancyTimeFormat(item.faturado);
@@ -359,7 +360,7 @@
 					console.log('Deu erro');
 				}
 			);
-
+	  		
 			$rootScope.state 	= 'app.ligacao.detalhes';
 			$scope.detalhes 	= $stateParams.detalhes;
 		}
