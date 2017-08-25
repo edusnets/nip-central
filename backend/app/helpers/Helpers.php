@@ -105,9 +105,6 @@ class Helpers {
 		}
 
 		return $ligacao;
-
-
-
 	}
 
 	static function createLigacaoObject($ligacao){
