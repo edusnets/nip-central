@@ -9,5 +9,5 @@ class UserEntidade extends Illuminate\Database\Eloquent\Model
 		$capsule->bootEloquent();
 	}
 
-	protected $table = 'n_usuario_entidade_view';
+	protected $table = 'n_usuario_filtrogravacao_view';
 }
