@@ -35,14 +35,34 @@ $app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), fu
 	}
 
 	if($user->admin == 0){
-		$entidades = null;
+		$contas 		= null;
+		$origemdestino 	= null;
+
 		foreach($user->entidade as $entidade){
-			$entidades[] = $entidade->numero_entidade;
+			if($entidade->conta == 1){
+				$contas[] = $entidade->filtro;
+			}
+
+			if($entidade->origemdestino == 1){
+				$origemdestino[] = $entidade->filtro;
+			}
+
+			//$entidades[] = $entidade->filtro;
 		}
 
-		if($entidades){
-			$ligacoes->where(function($query) use ($entidades){
-				return $query->orWhereIn('realsrc', $entidades)->orWhereIn('realdst', $entidades);
+		if($contas or $origemdestino){
+			$ligacoes->where(function($query) use ($origemdestino, $contas){
+				$returnQuery = null;
+
+				if($origemdestino AND $contas){
+					$returnQuery = $query->orWhereIn('realsrc', $origemdestino)->orWhereIn('realdst', $origemdestino)->orWhereIn('accountcode', $contas);
+				}else if($origemdestino){
+					$returnQuery = $query->orWhereIn('realsrc', $origemdestino)->orWhereIn('realdst', $origemdestino);
+				}else if($contas){
+					$returnQuery = $query->orWhereIn('accountcode', $contas);
+				}
+
+				return $returnQuery;
 			});
 		}else{
 			return Helpers::jsonResponse(200, 'Okey', []);
