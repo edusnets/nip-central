@@ -351,6 +351,28 @@
         LigacaoService,
         $location) {
 
+        function fancyTimeFormat(time) {
+          // Hours, minutes and seconds
+          var hrs = ~~(time / 3600);
+          var mins = ~~((time % 3600) / 60);
+          var secs = time % 60;
+
+          // Output like "1:01" or "4:03:59" or "123:03:59"
+          var ret = "";
+
+          if (hrs > 0) {
+            ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
+          }
+
+          ret += "" + mins + ":" + (secs < 10 ? "0" : "");
+          ret += "" + secs;
+          return ret;
+        }
+
+        function ptBrFormat(datetime) {
+          return datetime.substr(8, 2) + '/' + datetime.substr(5, 2) + '/' + datetime.substr(0, 4) + ' ' + datetime.substr(11, 8)
+        }
+
         $scope.audioFile = false;
         
         $rootScope.state = 'app.ligacao.detalhes';
@@ -358,6 +380,9 @@
         if (!$stateParams.detalhes) {
           LigacaoService.getDetails(ligacaoID).then(function (resp) {
             $scope.detalhes = resp.data.data
+            $scope.detalhes.dateView = ptBrFormat(resp.data.data.date)
+            $scope.detalhes.duracaoView = fancyTimeFormat(resp.data.data.duracao);
+            $scope.detalhes.faturadoView = fancyTimeFormat(resp.data.data.faturado);
             getAudio()
           }, function () {
             console.error('fail to retrieve call details')
