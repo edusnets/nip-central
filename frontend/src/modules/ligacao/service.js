@@ -5,17 +5,22 @@
         'Settings',
         function($http, Settings){
 
-            function get(filter){                
+            function get(filter){
                 return $http.post(Settings.api + '/ligacao', filter);                
             }
 
-            function getAudio(id){                
+            function getAudio(id){
                 return $http.get(Settings.api + '/ligacao/audio/' + id);                
+            }
+
+            function getDetails(id){
+                return $http.get(Settings.api + '/ligacao/' + id)
             }
 
             return {
                 get: get,
-                getAudio: getAudio
+                getAudio: getAudio,
+                getDetails: getDetails
             }
         }
     ])

@@ -29,7 +29,7 @@ gulp.task('default', function() {
 });
 
 gulp.task('deleteDistFolder', function() {
-	del(['dist/**']);
+	del.sync(['dist/**']);
 });
 
 gulp.task('modules-styles', function() {
