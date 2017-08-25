@@ -82,7 +82,7 @@
           sortable: true
         }, {
           key: 'duracao',
-          title: 'DuraÃ§Ã£o',
+          title: 'Duração',
           sortable: true,
           hide: 'hidden-sm hidden-xs',
           onRender: function (val) {
@@ -104,7 +104,7 @@
             if (val == 'ANSWERED') {
               return 'Atendida';
             } else {
-              return 'NÃ£o atendida';
+              return 'Não atendida';
             }
           }
         }, {
