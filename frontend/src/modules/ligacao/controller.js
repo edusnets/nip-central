@@ -292,9 +292,9 @@
             separator: ' - ',
             applyLabel: "Confirmar",
             fromLabel: "De",
-            toLabel: "AtÃ©",
+            toLabel: "Até",
             cancelLabel: 'Cancelar',
-            customRangeLabel: 'PerÃ­odo Customizado',
+            customRangeLabel: 'Período Customizado',
             daysOfWeek: [
               'Dom',
               'Seg',
@@ -302,13 +302,13 @@
               'Qua',
               'Qui',
               'Sex',
-              'SÃ¡b'
+              'Sáb'
             ],
             firstDay: 1,
             monthNames: [
               'Janeiro',
               'Fevereiro',
-              'MarÃ§o',
+              'Março',
               'Abril',
               'Maio',
               'Junho',
@@ -327,10 +327,10 @@
             'Hoje': [
               moment().subtract(0, 'days'), moment()
             ],
-            'Ãšltimos 7 dias': [
+            'Últimos 7 dias': [
               moment().subtract(6, 'days'), moment()
             ],
-            'Ãšltimos 30 dias': [
+            'Últimos 30 dias': [
               moment().subtract(29, 'days'), moment()
             ]
           }
