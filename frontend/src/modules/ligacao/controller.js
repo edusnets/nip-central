@@ -315,7 +315,7 @@
               'Julho',
               'Agosto',
               'Setembro',
-              'Outrubro',
+              'Outubro',
               'Novembro',
               'Dezembro'
             ]
