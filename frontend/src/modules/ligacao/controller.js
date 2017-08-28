@@ -373,6 +373,18 @@
           return datetime.substr(8, 2) + '/' + datetime.substr(5, 2) + '/' + datetime.substr(0, 4) + ' ' + datetime.substr(11, 8)
         }
 
+        function translateStatus(status){
+          switch(status){
+            case 'ANSWERED':
+              return 'Atendida';
+              break;
+
+            case 'NO ANSWER':
+              return 'Não atendida';
+              break;
+          }
+        }
+
         $scope.audioFile = false;
         
         $rootScope.state = 'app.ligacao.detalhes';
@@ -380,10 +392,11 @@
         if (!$stateParams.detalhes) {
           LigacaoService.getDetails(ligacaoID).then(function (resp) {
             $scope.detalhes = resp.data.data
-            $scope.detalhes.dateView = ptBrFormat(resp.data.data.date)
-            $scope.detalhes.duracaoView = fancyTimeFormat(resp.data.data.duracao);
-            $scope.detalhes.faturadoView = fancyTimeFormat(resp.data.data.faturado);
-            getAudio()
+            $scope.detalhes.dateView      = ptBrFormat(resp.data.data.date);
+            $scope.detalhes.duracaoView   = fancyTimeFormat(resp.data.data.duracao);
+            $scope.detalhes.faturadoView  = fancyTimeFormat(resp.data.data.faturado);
+            $scope.detalhes.status        = translateStatus(resp.data.data.status);
+            getAudio();
           }, function () {
             console.error('fail to retrieve call details')
           })
@@ -402,7 +415,6 @@
             }
           );
         }
-
       }
     ])
     .filter('search', function () {
