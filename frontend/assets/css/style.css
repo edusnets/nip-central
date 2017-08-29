@@ -118,3 +118,15 @@ code {
 .lastFormGroup{
 	margin-left: 10px;
 }
+
+@media screen and (max-width: 1400px) {
+	.table>thead:first-child>tr:first-child>th{
+		font-size: 11px;
+		text-align: center;
+		white-space: nowrap;
+	}
+
+	.table>tbody>tr>td{
+		font-size: 85%; 
+	}
+}

@@ -116,7 +116,7 @@
           sortable: true
         }, {
           key: 'transferido_por',
-          title: 'Transferido Por',
+          title: 'Transf. Por',
           sortable: true,
           hide: 'hidden-sm hidden-xs'
         }, {
