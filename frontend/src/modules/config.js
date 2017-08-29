@@ -57,5 +57,5 @@
 			delete $httpProvider.defaults.headers.common['X-Requested-With'];
 		}
    ])
-   .constant("env", "dev"); //dev || dev-remote || prod
+   .constant("env", "prod"); //dev || dev-remote || prod
 })();
