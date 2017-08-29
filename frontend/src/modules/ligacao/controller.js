@@ -152,7 +152,7 @@
           item.dateView = ptBrFormat(item.date)
           item.duracaoView = fancyTimeFormat(item.duracao);
           item.faturadoView = fancyTimeFormat(item.faturado);
-          item.status = translateStatus(item.status);
+          item.statusView = translateStatus(item.status);
           $state.go('app.ligacao.detalhes', { id: item.id , detalhes: item})
         }
 
@@ -407,7 +407,7 @@
             $scope.detalhes.dateView      = ptBrFormat(resp.data.data.date);
             $scope.detalhes.duracaoView   = fancyTimeFormat(resp.data.data.duracao);
             $scope.detalhes.faturadoView  = fancyTimeFormat(resp.data.data.faturado);
-            $scope.detalhes.status        = translateStatus(resp.data.data.status);
+            $scope.detalhes.statusView    = translateStatus(resp.data.data.status);
             getAudio();
           }, function () {
             console.error('fail to retrieve call details')
