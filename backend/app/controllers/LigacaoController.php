@@ -98,7 +98,12 @@ $app->get('/ligacao/audio/:id', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddlew
 
 	$audioPath 	= BASEPATH . '/../monitor/';
 	$audioFile 	= $audioPath . $ligacao->audio;
-	$file 		= file_get_contents($audioFile);
+
+	try{
+		$file = file_get_contents($audioFile);
+	}catch(Exception $e){
+		return Helpers::jsonResponse(200, '', []);
+	}
 
 	return Helpers::jsonResponse(200, 'Okey', [
 		'audio' => 'data:audio/x-wav;base64,' . base64_encode($file)
