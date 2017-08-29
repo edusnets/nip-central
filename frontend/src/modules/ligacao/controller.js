@@ -100,9 +100,9 @@
           title: 'Status',
           sortable: true,
           onRender: function (val) {
-            if (val == 'ANSWERED') {
+            if (val == 'ANSWERED' || val == 'Atendida') {
               return 'Atendida';
-            } else {
+            } else if (val == 'NOT ANSWER' || val == 'Não atendida') {
               return 'Não atendida';
             }
           }
