@@ -22,7 +22,7 @@
 				</tr>
 				<tr>
 					<td><h5><strong>Status</strong></h5></td>
-					<td><h5>{{detalhes.status}}</h5></td>
+					<td><h5>{{ detalhes.status }}</h5></td>
 				</tr>
 				<tr>
 					<td><h5><strong>Áudio</strong></h5></td>
@@ -31,6 +31,13 @@
 							<source ng-src="{{ audioFile }}" type="audio/wav">						
 							Seu browser não suporta este player. Por favor, entre em contato com o nosso suporte.
 						</audio>
+						<div ng-if="audioFileLoading">
+							<i class="fa fa-spinner fa-pulse"></i>
+							<small>Aguarde, carregando...</small>
+						</div>
+						<div ng-if="audioFileHidden">
+							Arquivo de áudio indisponível
+						</div>
 					</td>
 				</tr>
 			</table>

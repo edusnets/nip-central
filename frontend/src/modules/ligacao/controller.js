@@ -33,7 +33,6 @@
 
         var progressBarTop = ProgressBarsStorage.get('main');
 
-
         $rootScope.state = 'app.ligacao';
 
         $scope.rows = [];
@@ -137,10 +136,23 @@
           hide: 'hidden-sm hidden-xs'
         }];
 
+        function translateStatus(status){
+          switch(status){
+            case 'ANSWERED':
+              return 'Atendida';
+              break;
+
+            case 'NO ANSWER':
+              return 'Não atendida';
+              break;
+          }
+        }
+
         $scope.showDetails = function (item) {
           item.dateView = ptBrFormat(item.date)
           item.duracaoView = fancyTimeFormat(item.duracao);
           item.faturadoView = fancyTimeFormat(item.faturado);
+          item.status = translateStatus(item.status);
           $state.go('app.ligacao.detalhes', { id: item.id , detalhes: item})
         }
 
@@ -406,9 +418,19 @@
         }
 
         function getAudio() {
+          $scope.audioFileHidden = false;
+          $scope.audioFileLoading = true;
+
           LigacaoService.getAudio($scope.detalhes.id).then(
             function (result) {
-              $scope.audioFile = result.data.data.audio;
+              if(result.data.data.audio == undefined){
+                $scope.audioFileHidden  = true;
+              }else{
+                $scope.audioFile = true;
+                $scope.audioFile = result.data.data.audio;
+                $scope.audioFileLoading = false;
+              }
+              $scope.audioFileLoading = false;
             },
             function (result) {
               console.error('fail to retrieve audio call')
