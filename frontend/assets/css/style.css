@@ -130,3 +130,17 @@ code {
 		font-size: 85%; 
 	}
 }
+
+/* Custom NIP */
+.pagination>li>a, .pagination>li>span {
+	color: #333;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+	background-color: #5bc0de;
+	border-color: #46b8da;
+}
+
+.table>caption+thead>tr:first-child>td, .table>caption+thead>tr:first-child>th, .table>colgroup+thead>tr:first-child>td, .table>colgroup+thead>tr:first-child>th, .table>thead:first-child>tr:first-child>td, .table>thead:first-child>tr:first-child>th {
+	border-bottom: 0;
+}
