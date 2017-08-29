@@ -285,7 +285,7 @@
               date_start: newRange.startDate.startOf('day'),
               date_end: newRange.endDate.startOf('day')
             }).then(function (response) {
-              $scope.rows = searchFilter(response.data.data, $scope.search);
+              $scope.rows = searchFilter(response.data.data, [$scope.sentido, $scope.status, $scope.searchString]);
               $scope.originalRows = response.data.data;
             }).finally(function () {
               progressBarTop.done();
