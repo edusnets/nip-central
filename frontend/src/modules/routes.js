@@ -11,7 +11,7 @@
 
          $stateProvider
          .state('app', {
-            url: '/',
+            url: '',
             views: {
                'app': {
                   templateUrl: 'src/template/app.html'
@@ -33,7 +33,7 @@
             ]
          })         
          .state('app.ligacao', {            
-            url: 'ligacao',
+            url: '/ligacao',
             views: {
                'content': {
                   controller : 'LigacaoCtrl',
@@ -66,7 +66,7 @@
             resolve: ['localStorageService', 'Settings', '$location',
                 function(localStorageService, Settings, $location) {                                        
                     if(localStorageService.get(Settings.token)){
-                        location.href = '#!/ligacao'
+                        location.href = '/ligacao'
                     }
                 }
             ]

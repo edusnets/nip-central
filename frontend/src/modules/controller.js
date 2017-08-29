@@ -12,6 +12,7 @@
          
              $scope.logout = function(){
                 localStorageService.clearAll();
+                location.href = '/login'
              }
          }
       ]

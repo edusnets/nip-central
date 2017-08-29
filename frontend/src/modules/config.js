@@ -18,6 +18,8 @@
 			localStorageServiceProvider,
 			minimalGridConfigProvider) {
 
+			$locationProvider.html5Mode(true).hashPrefix('');
+
 			localStorageServiceProvider
 			.setPrefix('')
 			.setStorageType('localStorage')
