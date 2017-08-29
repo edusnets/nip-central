@@ -102,7 +102,7 @@
           onRender: function (val) {
             if (val == 'ANSWERED' || val == 'Atendida') {
               return 'Atendida';
-            } else if (val == 'NOT ANSWER' || val == 'Não atendida') {
+            } else if (val == 'NO ANSWER' || val == 'Não atendida') {
               return 'Não atendida';
             }
           }
