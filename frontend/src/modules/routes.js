@@ -8,7 +8,7 @@
          $urlRouterProvider) {
 
          $urlRouterProvider.otherwise('/login');
-
+         
          $stateProvider
          .state('app', {
             url: '',
@@ -25,9 +25,9 @@
                }
             }, 
             resolve: ['localStorageService', 'Settings', '$location',
-                function(localStorageService, Settings, $location) {                    
-                    if(!localStorageService.get(Settings.token)){                        
-                        $location.href('/login')
+                function(localStorageService, Settings, $location) {
+                    if(!localStorageService.get(Settings.token)){
+                        $location.path('/login');
                     }
                 }
             ]
@@ -64,10 +64,10 @@
                }
             },
             resolve: ['localStorageService', 'Settings', '$location',
-                function(localStorageService, Settings, $location) {                                        
-                    if(localStorageService.get(Settings.token)){
-                        location.href = '/ligacao'
-                    }
+                function(localStorageService, Settings, $location) {
+                    if(localStorageService.get(Settings.token)){                            
+                        $location.path('/ligacao');
+                    }                    
                 }
             ]
          });
