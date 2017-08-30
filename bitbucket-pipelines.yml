@@ -16,6 +16,7 @@ pipelines:
             # Configurar
             - gulp
             # Preparar pastas
+            - cd ..
             - mv backend api
             - mv frontend/dist app
             - find ./api -type d -exec chmod 0755 {} \;
