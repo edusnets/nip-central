@@ -24,11 +24,18 @@
                   templateUrl: 'src/template/parts/main-content.html'
                }
             }, 
-            resolve: ['localStorageService', 'Settings', '$location',
-                function(localStorageService, Settings, $location) {
-                    if(!localStorageService.get(Settings.token)){
-                        $location.path('/login');
-                    }
+            resolve: ['localStorageService', 'Settings', '$location', '$q',
+                function(localStorageService, Settings, $location, $q) {
+                    return $q(function(resolve, reject) {
+                        if(localStorageService.get(Settings.token)){
+                            resolve()                           
+                        } else {                            
+                            location.href = '/login';
+                        }
+                    }).then(function(){
+                        return true;
+                    })
+                    
                 }
             ]
          })         

@@ -153,6 +153,7 @@
           item.duracaoView = fancyTimeFormat(item.duracao);
           item.faturadoView = fancyTimeFormat(item.faturado);
           item.statusView = translateStatus(item.status);
+          
           $state.go('app.ligacao.detalhes', { id: item.id , detalhes: item})
         }
 
