@@ -1,0 +1,33 @@
+image: node:6.9.4
+pipelines:
+  custom:
+    desenvolvimento:
+      - step:
+          caches:
+            - node
+          script:
+            # Declarar variaveis
+            - export IMAGE_NAME=nextip/central:latest
+            - echo $IMAGE_NAME
+            # Instalar dependencias
+            - cd frontend
+            - npm install -g gulp && npm install -g bower
+            - npm install && bower install --allow-root
+            # Configurar
+            - gulp
+            # Preparar pastas
+            - mv backend api
+            - mv frontend/dist app
+            - find ./api -type d -exec chmod 0755 {} \;
+            - find ./api -type f -exec chmod 0644 {} \;
+            - find ./app -type d -exec chmod 0755 {} \;
+            - find ./app -type f -exec chmod 0644 {} \;
+            # Preparar buildcontext
+            - mkdir buildcontext && tar -zcf buildcontext/build.tar.gz api app && mv Dockerfile buildcontext && cd buildcontext
+            # Gerar imagem docker
+            - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
+            - docker build -t $IMAGE_NAME .
+            - docker push $IMAGE_NAME
+
+options:
+  docker: true
