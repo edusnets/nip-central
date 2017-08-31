@@ -4,12 +4,10 @@
       '$scope',
       '$rootScope',
       'LigacaoService',
-      'searchFilter',
       function (
         $scope,
         $rootScope,
-        LigacaoService,
-        searchFilter) {
+        LigacaoService) {
         $scope.$on('$stateChangeStart',
           function (event, toState, toParams, fromState, fromParams) {
             $scope.state = toState.name;
@@ -22,6 +20,7 @@
       '$state',
       'LigacaoService',
       'searchFilter',
+      'searchwithFilter',
       'ProgressBarsStorage',
       'fancytimeFilter',
       'ptbrdateFilter',
@@ -32,6 +31,7 @@
         $state,
         LigacaoService,
         searchFilter,
+        searchwithFilter,
         ProgressBarsStorage,
         fancytimeFilter,
         ptbrdateFilter,
@@ -173,7 +173,10 @@
               break;
           }
 
-          $scope.rows = searchFilter($scope.originalRows, [$scope.sentido, $scope.status, $scope.searchString]);
+          // $scope.rows = searchFilter($scope.originalRows, [$scope.sentido, $scope.status, $scope.searchString]);
+          $scope.rows = searchFilter($scope.originalRows, $scope.sentido);
+          $scope.rows = searchFilter($scope.rows, $scope.status);
+          $scope.rows = searchwithFilter($scope.rows, $scope.searchString);
         }
 
         $scope.statusBtnSentido = {
@@ -241,8 +244,10 @@
               $scope.sentido = '';
               break;
           }
-
-          $scope.rows = searchFilter($scope.originalRows, [$scope.sentido, $scope.status, $scope.searchString]);
+          // $scope.rows = searchFilter($scope.originalRows, [$scope.sentido, $scope.status, $scope.searchString]);
+          $scope.rows = searchFilter($scope.originalRows, $scope.sentido);
+          $scope.rows = searchFilter($scope.rows, $scope.status);
+          $scope.rows = searchwithFilter($scope.rows, $scope.searchString);
         }
 
         $scope.range = {
@@ -257,8 +262,11 @@
               date_start: newRange.startDate.startOf('day'),
               date_end: newRange.endDate.startOf('day')
             }).then(function (response) {
-              $scope.rows = searchFilter(response.data.data, [$scope.sentido, $scope.status, $scope.searchString]);
+              // $scope.rows = searchFilter(response.data.data, [$scope.sentido, $scope.status, $scope.searchString]);
               $scope.originalRows = response.data.data;
+              $scope.rows = searchFilter($scope.originalRows, $scope.sentido);
+              $scope.rows = searchFilter($scope.rows, $scope.status);
+              $scope.rows = searchwithFilter($scope.rows, $scope.searchString);
             }).finally(function () {
               progressBarTop.done();
             });
@@ -267,7 +275,10 @@
 
         $scope.$watch('search', function (newStr) {
           $scope.searchString = newStr;
-          $scope.rows = searchFilter($scope.originalRows, [newStr, $scope.status, $scope.sentido]);
+          // $scope.rows = searchFilter($scope.originalRows, [$scope.sentido, $scope.status, newStr]);
+          $scope.rows = searchFilter($scope.originalRows, $scope.sentido);
+          $scope.rows = searchFilter($scope.rows, $scope.status);
+          $scope.rows = searchwithFilter($scope.rows, $scope.searchString);
         });
 
         $scope.options = {

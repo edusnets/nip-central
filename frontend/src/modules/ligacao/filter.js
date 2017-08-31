@@ -46,64 +46,43 @@
         return label
       }
     })
-    .filter('search', [
+    .filter('searchwith', [
       'fancytimeFilter',
       'ptbrdateFilter',
       function (
         fancytimeFilter,
         ptbrdateFilter) {
+        return function (rows, str) {
+          rows = rows || [];
 
-      Object.size = function (obj) {
-        var size = 0, key;
-        for (key in obj) {
-          if (obj.hasOwnProperty(key)) size++;
-        }
-        return size;
-      };
+          return rows.filter(function (row) {
+            var rowTest = angular.copy(row);
+            rowTest['duracao'] = fancytimeFilter(rowTest['duracao']);
+            rowTest['faturado'] = fancytimeFilter(rowTest['faturado']);
+            rowTest['date'] = ptbrdateFilter(rowTest['date']);
 
+            var rowTestSearchable = Object.keys(rowTest)
+            var status = rowTestSearchable.indexOf('status')
+            rowTestSearchable.splice(status, 1)
+            var sentido = rowTestSearchable.indexOf('sentido')
+            rowTestSearchable.splice(sentido, 1)
+            return rowTestSearchable.some(function (key) {
+              if (rowTest[key]) {
+                return new RegExp(str, 'gi').test(rowTest[key].toString());
+              }
+            });
+          });
+
+        };
+      }])
+    .filter('search', [function () {
       return function (rows, str) {
         rows = rows || [];
         return rows.filter(function (row) {
-          var rowArray = Object.keys(row).map(function (key) { return row[key]; });
-          var rowTest = angular.copy(row);
-          rowTest['duracao'] = fancytimeFilter(rowTest['duracao']);
-          rowTest['faturado'] = fancytimeFilter(rowTest['faturado']);
-          rowTest['date'] = ptbrdateFilter(rowTest['date']);
-
-          var fullRowStr = '';
-          var elementItem = '';
-
-          for (elementItem in rowTest) {
-            if ((elementItem != 'status') && (elementItem != 'sentido')) {
-              fullRowStr += rowTest[elementItem] + '|';
-            }
-          }
-
-          // if (str && Array.isArray(str)) {
-          //   var find = 0;
-          //   var validParams = 0;
-
-          //   for (var i = 0; i < str.length; i++) {
-          //     if (str[i] != '' && str[i] != undefined) {
-          //       validParams++;
-          //       if (new RegExp(str[i], 'gi').test(fullRowStr)) {
-          //         find++;
-          //       }
-          //     }
-          //   }
-
-          //   if (find == validParams) {
-          //     return true;
-          //   }
-          // }
-          var rowTestSearchable = Object.keys(rowTest)
-          var status = rowTestSearchable.indexOf('status')
-          rowTestSearchable.splice(status, 1)
-          var sentido = rowTestSearchable.indexOf('sentido')
-          rowTestSearchable.splice(sentido, 1)
-          return rowTestSearchable.some(function (key) {
-            if (rowTest[key]) {
-              return new RegExp(str, 'gi').test(rowTest[key].toString());
+          
+          return Object.keys(row).some(function (key) {
+            if (row[key]) {
+              return new RegExp(str, 'gi').test(row[key].toString());
             }
           });
 
