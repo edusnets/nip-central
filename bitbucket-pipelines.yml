@@ -14,7 +14,7 @@ pipelines:
             - npm install -g gulp && npm install -g bower
             - npm install && bower install --allow-root
             # Configurar
-            - gulp
+            - gulp dist --prod
             - cd ..
             # Preparar pastas
             - mkdir -p raiz/opt/nextip/www
