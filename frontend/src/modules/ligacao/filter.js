@@ -34,6 +34,12 @@
           case 'NO ANSWER':
             label = 'Não atendida'
             break
+          case 'FAILED':
+            label = 'Falha'
+            break
+          case 'BUSY':
+            label = 'Ocupado'
+            break
           default:
             label = 'Outro'
         }
@@ -73,35 +79,33 @@
             }
           }
 
-          if (str && Array.isArray(str)) {
-            var find = 0;
-            var validParams = 0;
+          // if (str && Array.isArray(str)) {
+          //   var find = 0;
+          //   var validParams = 0;
 
-            for (var i = 0; i < str.length; i++) {
-              if (str[i] != '' && str[i] != undefined) {
-                validParams++;
-                if (new RegExp(str[i], 'gi').test(fullRowStr)) {
-                  find++;
-                }
-              }
-            }
+          //   for (var i = 0; i < str.length; i++) {
+          //     if (str[i] != '' && str[i] != undefined) {
+          //       validParams++;
+          //       if (new RegExp(str[i], 'gi').test(fullRowStr)) {
+          //         find++;
+          //       }
+          //     }
+          //   }
 
-            if (find == validParams) {
-              return true;
+          //   if (find == validParams) {
+          //     return true;
+          //   }
+          // }
+          var rowTestSearchable = Object.keys(rowTest)
+          var status = rowTestSearchable.indexOf('status')
+          rowTestSearchable.splice(status, 1)
+          var sentido = rowTestSearchable.indexOf('sentido')
+          rowTestSearchable.splice(sentido, 1)
+          return rowTestSearchable.some(function (key) {
+            if (rowTest[key]) {
+              return new RegExp(str, 'gi').test(rowTest[key].toString());
             }
-          }
-          else {
-            var rowTestSearchable = Object.keys(rowTest)
-            var status = rowTestSearchable.indexOf('status')
-            rowTestSearchable.splice(status, 1)
-            var sentido = rowTestSearchable.indexOf('sentido')
-            rowTestSearchable.splice(sentido, 1)
-            return rowTestSearchable.some(function (key) {
-              if (rowTest[key]) {
-                return new RegExp(str, 'gi').test(rowTest[key].toString());
-              }
-            });
-          }
+          });
 
         });
       };
