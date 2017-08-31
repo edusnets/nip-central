@@ -25,9 +25,9 @@
 			.setStorageType('localStorage')
 			.setDefaultToCookie(false);
 
-			minimalGridConfigProvider.setStatsMessage('Mostrando %1 Ã  %2 de %3 resultados')
+			minimalGridConfigProvider.setStatsMessage('Mostrando %1 à %2 de %3 resultados')
 			minimalGridConfigProvider.setFirstLabel('Primeiro')
-			minimalGridConfigProvider.setLastLabel('Ãšltimo')
+			minimalGridConfigProvider.setLastLabel('Último')
 
 			$httpProvider.interceptors.push([
 				'$q',
@@ -59,5 +59,5 @@
 			delete $httpProvider.defaults.headers.common['X-Requested-With'];
 		}
    ])
-   .constant("env", "dev-remote"); //dev || dev-remote || prod
+   .constant("env", "prod"); //dev || dev-remote || prod
 })();
