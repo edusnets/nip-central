@@ -2,7 +2,6 @@
    angular.module('NipCentral')
    .controller('LoginCtrl', [
       '$scope',
-      '$http',
       '$state',
       'localStorageService',
       'LoginService',
@@ -10,7 +9,6 @@
       'Settings',
       function(
          $scope,
-         $http,
          $state,
          localStorageService,
          LoginService,

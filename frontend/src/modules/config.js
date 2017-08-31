@@ -55,9 +55,8 @@
 			]);
 
 			$httpProvider.defaults.useXDomain = true;
-
 			delete $httpProvider.defaults.headers.common['X-Requested-With'];
+
 		}
    ])
-   .constant("env", "dev-remote"); //dev || dev-remote || prod
 })();
