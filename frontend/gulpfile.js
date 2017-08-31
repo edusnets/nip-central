@@ -48,7 +48,7 @@ function getEnv() {
 
 		} else {
 			const env = args.pop();
-			const pattern = new RegExp(/--dev(-remote)?|--prod/);
+			const pattern = new RegExp(/^--dev$|^--dev-remote$|^--prod$/);
 			
 			if(pattern.test(env)){
 				resolve(env.replace("--", ""));
@@ -62,13 +62,15 @@ function getEnv() {
 gulp.task('env', function (){
 	return getEnv()
 	.then(type => setEnv(type))
-	.then(task => task.pipe(gulp.dest('./src/modules')));
+	.then(task => task.pipe(gulp.dest('./src/modules')))
+	.catch(ex => console.log(ex));
 });
 
 gulp.task('env:dist', function (){
 	return getEnv()
 	.then(type => setEnv(type))
-	.then(task => task.pipe(gulp.dest(config.base.src + '/src/modules')));
+	.then(task => task.pipe(gulp.dest(config.base.src + '/src/modules')))
+	.catch(ex => console.log(ex));
 });
 
 gulp.task('dist', function () {

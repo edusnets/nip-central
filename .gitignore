@@ -1,5 +1,6 @@
-frontend/src/modules/settings.js
 monitor/*
+
+frontend/env.js
 
 ## Angular ##
 # compiled output

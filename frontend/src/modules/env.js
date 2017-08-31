@@ -1,5 +1,5 @@
 (function () { 
  return angular.module("NipCentral")
-.constant("env", "dev-remoteasd");
+.constant("env", "prod");
 
 })();
