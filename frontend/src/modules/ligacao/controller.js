@@ -23,13 +23,19 @@
       'LigacaoService',
       'searchFilter',
       'ProgressBarsStorage',
+      'fancytimeFilter',
+      'ptbrdateFilter',
+      'maptranslateFilter',
       function (
         $scope,
         $rootScope,
         $state,
         LigacaoService,
         searchFilter,
-        ProgressBarsStorage) {
+        ProgressBarsStorage,
+        fancytimeFilter,
+        ptbrdateFilter,
+        maptranslateFilter) {
 
         var progressBarTop = ProgressBarsStorage.get('main');
 
@@ -37,36 +43,13 @@
 
         $scope.rows = [];
 
-        function fancyTimeFormat(time) {
-          // Hours, minutes and seconds
-          var hrs = ~~(time / 3600);
-          var mins = ~~((time % 3600) / 60);
-          var secs = time % 60;
-
-          // Output like "1:01" or "4:03:59" or "123:03:59"
-          var ret = "";
-
-          if (hrs > 0) {
-            ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
-          }
-
-          ret += "" + mins + ":" + (secs < 10 ? "0" : "");
-          ret += "" + secs;
-          return ret;
-        }
-
-        function ptBrFormat(datetime) {
-          return datetime.substr(8, 2) + '/' + datetime.substr(5, 2) + '/' + datetime.substr(0, 4) + ' ' + datetime.substr(11, 8)
-        }
-
         $scope.fields = [{
           key: 'date',
           title: 'Data',
           sortable: true,
           onRender: function (val) {
-            return ptBrFormat(val)
+            return ptbrdateFilter(val)
           }
-          // formatDate: 'dd/MM/yyyy HH:mm:ss'
         }, {
           key: 'caller_id',
           title: 'CallerID',
@@ -85,7 +68,7 @@
           sortable: true,
           hide: 'hidden-sm hidden-xs',
           onRender: function (val) {
-            return fancyTimeFormat(val);
+            return fancytimeFilter(val);
           }
         }, {
           key: 'faturado',
@@ -93,7 +76,7 @@
           sortable: true,
           hide: 'hidden-sm hidden-xs',
           onRender: function (val) {
-            return fancyTimeFormat(val);
+            return fancytimeFilter(val);
           }
         }, {
           key: 'status',
@@ -136,25 +119,13 @@
           hide: 'hidden-sm hidden-xs'
         }];
 
-        function translateStatus(status){
-          switch(status){
-            case 'ANSWERED':
-              return 'Atendida';
-              break;
-
-            case 'NO ANSWER':
-              return 'Não atendida';
-              break;
-          }
-        }
-
         $scope.showDetails = function (item) {
-          item.dateView = ptBrFormat(item.date)
-          item.duracaoView = fancyTimeFormat(item.duracao);
-          item.faturadoView = fancyTimeFormat(item.faturado);
-          item.statusView = translateStatus(item.status);
-          
-          $state.go('app.ligacao.detalhes', { id: item.id , detalhes: item})
+          item.dateView = ptbrdateFilter(item.date)
+          item.duracaoView = fancytimeFilter(item.duracao);
+          item.faturadoView = fancytimeFilter(item.faturado);
+          item.statusView = maptranslateFilter(item.status);
+
+          $state.go('app.ligacao.detalhes', { id: item.id, detalhes: item })
         }
 
         $scope.openDatepicker = function (e) {
@@ -357,58 +328,30 @@
       '$stateParams',
       'LigacaoService',
       '$location',
+      'fancytimeFilter',
+      'ptbrdateFilter',
+      'maptranslateFilter',
       function (
         $scope,
         $rootScope,
         $stateParams,
         LigacaoService,
-        $location) {
-
-        function fancyTimeFormat(time) {
-          // Hours, minutes and seconds
-          var hrs = ~~(time / 3600);
-          var mins = ~~((time % 3600) / 60);
-          var secs = time % 60;
-
-          // Output like "1:01" or "4:03:59" or "123:03:59"
-          var ret = "";
-
-          if (hrs > 0) {
-            ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
-          }
-
-          ret += "" + mins + ":" + (secs < 10 ? "0" : "");
-          ret += "" + secs;
-          return ret;
-        }
-
-        function ptBrFormat(datetime) {
-          return datetime.substr(8, 2) + '/' + datetime.substr(5, 2) + '/' + datetime.substr(0, 4) + ' ' + datetime.substr(11, 8)
-        }
-
-        function translateStatus(status){
-          switch(status){
-            case 'ANSWERED':
-              return 'Atendida';
-              break;
-
-            case 'NO ANSWER':
-              return 'Não atendida';
-              break;
-          }
-        }
+        $location,
+        fancytimeFilter,
+        ptbrdateFilter,
+        maptranslateFilter) {
 
         $scope.audioFile = false;
-        
+
         $rootScope.state = 'app.ligacao.detalhes';
         var ligacaoID = parseInt($stateParams.id)
         if (!$stateParams.detalhes) {
           LigacaoService.getDetails(ligacaoID).then(function (resp) {
             $scope.detalhes = resp.data.data
-            $scope.detalhes.dateView      = ptBrFormat(resp.data.data.date);
-            $scope.detalhes.duracaoView   = fancyTimeFormat(resp.data.data.duracao);
-            $scope.detalhes.faturadoView  = fancyTimeFormat(resp.data.data.faturado);
-            $scope.detalhes.statusView    = translateStatus(resp.data.data.status);
+            $scope.detalhes.dateView = ptbrdateFilter(resp.data.data.date);
+            $scope.detalhes.duracaoView = fancytimeFilter(resp.data.data.duracao);
+            $scope.detalhes.faturadoView = fancytimeFilter(resp.data.data.faturado);
+            $scope.detalhes.statusView = maptranslateFilter(resp.data.data.status);
             getAudio();
           }, function () {
             console.error('fail to retrieve call details')
@@ -424,9 +367,9 @@
 
           LigacaoService.getAudio($scope.detalhes.id).then(
             function (result) {
-              if(result.data.data.audio == undefined){
-                $scope.audioFileHidden  = true;
-              }else{
+              if (result.data.data.audio == undefined) {
+                $scope.audioFileHidden = true;
+              } else {
                 $scope.audioFile = true;
                 $scope.audioFile = result.data.data.audio;
                 $scope.audioFileLoading = false;
@@ -440,78 +383,4 @@
         }
       }
     ])
-    .filter('search', function () {
-
-      function fancyTimeFormat(time) {
-        // Hours, minutes and seconds
-        var hrs = ~~(time / 3600);
-        var mins = ~~((time % 3600) / 60);
-        var secs = time % 60;
-
-        // Output like "1:01" or "4:03:59" or "123:03:59"
-        var ret = "";
-
-        if (hrs > 0) {
-          ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
-        }
-
-        ret += "" + mins + ":" + (secs < 10 ? "0" : "");
-        ret += "" + secs;
-        return ret;
-      }
-
-      function ptBrFormat(datetime) {
-        return datetime.substr(8, 2) + '/' + datetime.substr(5, 2) + '/' + datetime.substr(0, 4) + ' ' + datetime.substr(11, 8)
-      }
-
-      Object.size = function (obj) {
-        var size = 0, key;
-        for (key in obj) {
-          if (obj.hasOwnProperty(key)) size++;
-        }
-        return size;
-      };
-
-      return function (rows, str) {
-        rows = rows || [];
-        return rows.filter(function (row) {
-          var rowArray = Object.keys(row).map(function (key) { return row[key]; });
-          var rowTest = angular.copy(row);
-          rowTest['duracao'] = fancyTimeFormat(rowTest['duracao']);
-          rowTest['faturado'] = fancyTimeFormat(rowTest['faturado']);
-          rowTest['date'] = ptBrFormat(rowTest['date']);
-
-          var fullRowStr = '';
-          var elementItem = '';
-
-          for (elementItem in rowTest) {
-            fullRowStr += rowTest[elementItem] + '|';
-          }
-
-          if (str && Array.isArray(str)) {
-            var find = 0;
-            var validParams = 0;
-
-            for (var i = 0; i < str.length; i++) {
-              if (str[i] != '' && str[i] != undefined) {
-                validParams++;
-                if (new RegExp(str[i], 'gi').test(fullRowStr)) {
-                  find++;
-                }
-              }
-            }
-
-            if (find == validParams) {
-              return true;
-            }
-          }
-
-          return Object.keys(rowTest).some(function (key) {
-            if (rowTest[key]) {
-              return new RegExp(str, 'gi').test(rowTest[key].toString());
-            }
-          });
-        });
-      };
-    })
 })();
