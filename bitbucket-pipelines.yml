@@ -1,23 +1,56 @@
 image: node:6.9.4
 pipelines:
   custom:
-    desenvolvimento:
+    producao:
       - step:
           caches:
             - node
           script:
             # Declarar variaveis
-            - export IMAGE_NAME=nextip/central:latest
+            - export ENV_AUX=prod
+            - export TAG_PREFIX=P-
+            - export IMAGE_NAME=nextip/central:$TAG_PREFIX$BITBUCKET_BRANCH$BITBUCKET_TAG
             - echo $IMAGE_NAME
             # Instalar dependencias
             - cd frontend
             - npm install -g gulp && npm install -g bower
             - npm install && bower install --allow-root
             # Configurar
-            - gulp dist --prod
+            - gulp dist --$ENV_AUX
             - cd ..
             # Preparar pastas
-            - mkdir -p raiz/opt/nextip/www
+            - mkdir -p raiz/opt/nextip/www/monitor
+            - cp README raiz/opt/nextip/www
+            - mv backend raiz/opt/nextip/www
+            - mv frontend/dist raiz/opt/nextip/www/frontend
+            - find ./raiz -type d -exec chmod 0755 {} \;
+            - find ./raiz -type f -exec chmod 0644 {} \;
+            # Preparar buildcontext
+            - mkdir buildcontext && cd raiz && tar -zcf ../buildcontext/build.tar.gz . && cd .. && mv Dockerfile buildcontext && cd buildcontext
+            # Gerar imagem docker
+            - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
+            - docker build -t $IMAGE_NAME .
+            - docker push $IMAGE_NAME
+    desenvolvimento:
+      - step:
+          caches:
+            - node
+          script:
+            # Declarar variaveis
+            - export ENV_AUX=dev
+            - export TAG_PREFIX=D-
+            - export IMAGE_NAME=nextip/central:$TAG_PREFIX$BITBUCKET_BRANCH$BITBUCKET_TAG
+            - echo $IMAGE_NAME
+            # Instalar dependencias
+            - cd frontend
+            - npm install -g gulp && npm install -g bower
+            - npm install && bower install --allow-root
+            # Configurar
+            - gulp dist --$ENV_AUX
+            - cd ..
+            # Preparar pastas
+            - mkdir -p raiz/opt/nextip/www/monitor
+            - cp README raiz/opt/nextip/www
             - mv backend raiz/opt/nextip/www
             - mv frontend/dist raiz/opt/nextip/www/frontend
             - find ./raiz -type d -exec chmod 0755 {} \;
