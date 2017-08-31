@@ -15,16 +15,15 @@ pipelines:
             - npm install && bower install --allow-root
             # Configurar
             - gulp
-            # Preparar pastas
             - cd ..
-            - mv backend api
-            - mv frontend/dist app
-            - find ./api -type d -exec chmod 0755 {} \;
-            - find ./api -type f -exec chmod 0644 {} \;
-            - find ./app -type d -exec chmod 0755 {} \;
-            - find ./app -type f -exec chmod 0644 {} \;
+            # Preparar pastas
+            - mkdir -p raiz/opt/nextip/www
+            - mv backend raiz/opt/nextip/www
+            - mv frontend/dist raiz/opt/nextip/www/frontend
+            - find ./raiz -type d -exec chmod 0755 {} \;
+            - find ./raiz -type f -exec chmod 0644 {} \;
             # Preparar buildcontext
-            - mkdir buildcontext && tar -zcf buildcontext/build.tar.gz api app && mv Dockerfile buildcontext && cd buildcontext
+            - mkdir buildcontext && cd raiz && tar -zcf ../buildcontext/build.tar.gz . && cd .. && mv Dockerfile buildcontext && cd buildcontext
             # Gerar imagem docker
             - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
             - docker build -t $IMAGE_NAME .

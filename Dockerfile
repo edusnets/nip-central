@@ -1,7 +1,11 @@
-FROM webdevops/base:alpine
+FROM debian:wheezy
 
-# Instalar o projeto na pasta
-ADD build.tar.gz /app/
+# Instalar dependencias
+RUN apt-get update && apt-get upgrade -y && apt-get install -y lighttpd php5-cgi php5-mysql
 
-# Tornar porta 80 disponivel
-EXPOSE 80
+# Instalar o projeto
+ADD build.tar.gz /
+
+EXPOSE 4445
+
+ENTRYPOINT ["lighttpd","-D","-f","/etc/lighttpd/lighttpd.conf"]
