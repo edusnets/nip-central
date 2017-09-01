@@ -5,10 +5,10 @@
          var api = "";
 
          var apiOptions = {
-            local: "http://localhost/nip-central/backend",
+            local: "http://192.168.55.101:8081",
             remote: "http://192.168.63.95:4445/api"
          };
-         
+
          if (env === 'dev') {
             api = apiOptions.local;
          } else if (env === 'dev-remote') {

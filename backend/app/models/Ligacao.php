@@ -10,4 +10,18 @@ class Ligacao extends Illuminate\Database\Eloquent\Model
 	}
 
 	protected $table = 'a_cdr';
+
+	public function getStatusAttribute($value)
+	{
+		switch($value){
+			case 'NO ANSWER':
+				return 'NO ANSWER';
+
+			case 'ANSWERED':
+				return 'ANSWERED';
+
+			default :
+				return 'OTHERS';
+		}
+	}
 }

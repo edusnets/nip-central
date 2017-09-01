@@ -1,5 +1,13 @@
 <?php
 
+/*
+Status List
+	NO ANSWER - Não atendida
+	FAILED - Falha
+	BUSY - Ocupado
+	ANSWERED - Atendida
+*/
+
 $app->post('/ligacao', $JWTMiddleware, \CorsSlim\CorsSlim::routeMiddleware(), function() use ($app) {
 	$user 	= Helpers::user();
 
