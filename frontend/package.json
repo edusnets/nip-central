@@ -4,7 +4,7 @@
   "description": "This README would normally document whatever steps are necessary to get your application up and running.",
   "main": "index.js",
   "scripts": {
-    "test": "npm-run-all -p -r start selenium protractor",
+    "test": "karma start --singleRun",
     "protractor": "npm run delay && protractor protractor.js",
     "delay": "node ./node_modules/npm-delay 4000",
     "selenium": "webdriver-manager update && webdriver-manager start",
@@ -21,6 +21,7 @@
     "babel-preset-es2015": "^6.22.0",
     "bower": "^1.8.0",
     "fs": "0.0.1-security",
+    "glob": "^7.1.1",
     "gulp": "^3.9.1",
     "gulp-angular-embed-templates": "^2.3.0",
     "gulp-babel": "^6.1.2",
@@ -33,13 +34,15 @@
     "gulp-replace": "^0.5.4",
     "gulp-uglify": "^2.0.1",
     "http-serve": "^1.0.1",
-    "main-bower-files": "^2.13.1",
-    "run-sequence": "^1.2.2",
-    "glob": "^7.1.1",
     "jasmine-spec-reporter": "^3.2.0",
+    "karma": "^1.7.1",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^1.1.0",
+    "main-bower-files": "^2.13.1",
     "npm-delay": "^1.0.4",
     "npm-run-all": "^4.0.2",
-    "protractor": "^5.1.1"
+    "protractor": "^5.1.1",
+    "run-sequence": "^1.2.2"
   },
   "dependencies": {
     "del": "^3.0.0",
